@@ -104,6 +104,11 @@
 			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
+		    <groupId>cglib</groupId>
+		    <artifactId>cglib</artifactId>
+		    <version>2.2</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-datastore-mongodb</artifactId>
 			<version>1.0.0.BUILD-SNAPSHOT</version>
