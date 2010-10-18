@@ -42,7 +42,7 @@ public class ChartController {
 														// the URL to rotate the
 														// chart
 		JFreeChart chart = generateChart(rotate);
-		ChartUtilities.writeChartAsPNG(stream, chart, 600, 400);
+		ChartUtilities.writeChartAsPNG(stream, chart, 750, 400);
 	}
 
 	private JFreeChart generateChart(boolean rotate) {
