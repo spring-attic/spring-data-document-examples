@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:layout_gravity="fill_vertical"
+	android:background="#ffffff">
+
+	<FrameLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:background="#6DB33F"
+		android:layout_alignParentTop="true">
+		
+		<ImageView android:id="@+id/logo"
+			android:src="@drawable/gh_header_logo"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal" />
+
+	</FrameLayout>
+
+	<FrameLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_centerVertical="true">
+		
+		<Button android:id="@+id/signin_button"
+			android:layout_width="160dp"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:text="@string/login" />
+
+	</FrameLayout>
+	
+	<FrameLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true" >
+	
+		<ImageView android:id="@+id/logo"
+				android:src="@drawable/spring09_logo"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal" />
+
+	</FrameLayout>
+
+</RelativeLayout>

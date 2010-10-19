@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.springsource.myrestaurants"
+      android:versionCode="1"
+      android:versionName="1.0">
+      
+      
+    <uses-permission android:name="android.permission.INTERNET" />
+          
+    <application android:icon="@drawable/icon" android:label="@string/app_name">
+        <activity android:name=".MainActivity"
+                  android:label="@string/app_name"
+                  android:theme="@android:style/Theme.NoTitleBar">
+			               
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+           
+        </activity>
+        
+		<activity 
+			android:name="com.springsource.myrestaurants.activities.MainTabWidget" 
+			android:label="@string/app_name" 
+			android:theme="@android:style/Theme.NoTitleBar" />        
+
+		<activity 
+			android:name="com.springsource.myrestaurants.activities.RestListingActivity"
+			android:label="@string/title_event_details" />
+			
+			
+		<activity         
+			android:name="com.springsource.myrestaurants.activities.RestDetailsActivity" />	
+
+		<activity         
+			android:name="com.springsource.myrestaurants.activities.DeleteFavoriteRestActivity" />	
+			
+		<activity 
+			android:name="com.springsource.myrestaurants.activities.FavoritesListingActivity"
+			android:label="@string/title_fav_details" />				
+				
+    </application>
+
+
+</manifest> 

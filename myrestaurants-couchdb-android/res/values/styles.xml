@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+	<!-- Layout Styles -->
+	
+	<style name="MainTabLayout">
+		<item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">fill_parent</item>
+    	<item name="android:padding">5dp</item>
+	</style>
+	
+	<style name="ScrollView">
+	  	<item name="android:layout_width">fill_parent</item>
+		<item name="android:layout_height">fill_parent</item>
+		<item name="android:scrollbars">none</item>
+		<item name="android:padding">0dp</item>		
+	</style>
+	
+	<style name="ScrollableContainerLayout">
+	  	<item name="android:layout_width">fill_parent</item>
+		<item name="android:layout_height">fill_parent</item>
+		<item name="android:padding">0dp</item>
+	</style>
+	
+	<style name="ContainerLayout">
+	  	<item name="android:layout_width">fill_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:padding">0dp</item>
+	</style>
+	
+	
+	<!-- ListView Styles -->
+	
+	<style name="MenuListView">
+	    <item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">wrap_content</item>  
+	</style>
+
+		
+	<!-- TextView Styles -->
+		
+    <style name="Text">
+    	<item name="android:textSize">16sp</item>    
+        <item name="android:textStyle">normal</item>    
+    	<item name="android:layout_width">wrap_content</item>
+    	<item name="android:layout_height">wrap_content</item> 
+    </style>
+    
+    <style name="BoldText">
+    	<item name="android:textSize">16sp</item>    
+        <item name="android:textStyle">bold</item>    
+    	<item name="android:layout_width">wrap_content</item>
+    	<item name="android:layout_height">wrap_content</item>
+    </style> 
+    
+    <style name="HeadingText">
+    	<item name="android:textSize">16sp</item>    
+        <item name="android:textStyle">bold</item>  
+      	<item name="android:layout_width">wrap_content</item>
+    	<item name="android:layout_height">wrap_content</item>  
+    	<item name="android:paddingTop">20dp</item>
+    	<item name="android:paddingBottom">20dp</item> 
+    </style> 
+    
+    <!-- Button Styles -->
+    
+    <style name="WideButton">
+        <item name="android:layout_width">fill_parent</item>
+       	<item name="android:layout_height">wrap_content</item>   
+ 		<item name="android:layout_centerHorizontal">true</item>
+ 		<item name="android:padding">10dp</item>
+    	<item name="android:textSize">16sp</item> 
+    </style>
+        
+</resources>

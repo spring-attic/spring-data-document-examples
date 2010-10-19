@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, MainActivity!</string>
+    <string name="app_name">My Restaurants</string>
+    <string name="login">Sign In</string>
+    <string name="add_to_fav">Add to favorites</string>
+    <string name="remove_from_fav">Remove from favorites</string>
+    
+    
+    <string name="title_event_details">Restaurant Details</string>
+    <string name="title_event_description">Restaurant Description</string>
+    <string name="title_event_sessions">Event Sessions</string>
+    
+    <string name="title_fav_details">Favorite Restaurants</string>
+    
+    <string-array name="event_details_menu_array">
+        <item>Description</item>
+        <item>Sessions</item>
+        <item>Tweets</item>
+        <item>Map</item>
+    </string-array>
+    
+    <string-array name="event_sessions_menu_array">
+    	<item>Current</item>
+    	<item>Upcoming</item>
+    	<item>My Favorites</item>
+    	<item>Conference Favorites</item>
+    </string-array>
+    
+</resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/MainTabLayout" >
+	
+	<ScrollView
+		style="@style/ScrollView"
+		android:fillViewport="true" >
+
+		<LinearLayout
+			style="@style/ScrollableContainerLayout" 
+			android:orientation="vertical"
+	    	android:layout_weight="1" >
+
+			<LinearLayout
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+			    android:orientation="vertical"
+	    		android:layout_weight="1"
+	    		android:paddingBottom="20dp">
+	
+				<TextView 
+					style="@style/Text" 
+					android:id="@+id/event_details_textview_name" />
+			
+			    <TextView 
+			    	style="@style/Text"
+			    	android:id="@+id/event_details_textview_date" />
+			        
+			    <TextView 
+			    	style="@style/Text"
+			    	android:id="@+id/event_details_textview_location" />
+			    	
+			</LinearLayout>
+			
+			<Button android:id="@+id/rest_fav_button"
+					android:layout_width="160dp"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:text="@string/remove_from_fav" />
+			<!-- 		
+    		<ListView
+    			style="@style/MenuListView"
+    			android:id="@+id/event_details_menu"
+    			android:entries="@array/event_details_menu_array" />
+    			-->
+
+		</LinearLayout>
+		
+	</ScrollView>
+	
+</FrameLayout>
