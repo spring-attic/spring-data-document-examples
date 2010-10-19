@@ -1,0 +1,6 @@
+#Mon Oct 18 15:25:42 EDT 2010
+eclipse.preferences.version=1
+org.springframework.ide.eclipse.core.builders.enable.aopreferencemodelbuilder=true
+org.springframework.ide.eclipse.core.builders.enable.beanmetadatabuilder=true
+org.springframework.ide.eclipse.core.builders.enable.osgibundleupdater=false
+org.springframework.ide.eclipse.core.enable.project.preferences=false
