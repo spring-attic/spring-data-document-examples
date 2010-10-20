@@ -28,8 +28,8 @@ public class MainTabWidget extends TabActivity {
 		intent = new Intent();
 		intent.setClass(this, RestListingActivity.class);
 		
-		tabSpec = tabHost.newTabSpec("events");
-		tabSpec.setIndicator("Events", res.getDrawable(R.drawable.ic_tab_events));
+		tabSpec = tabHost.newTabSpec("restaurants");
+		tabSpec.setIndicator("Restaurants", res.getDrawable(R.drawable.ic_tab_events));
 		tabSpec.setContent(intent);
 		tabHost.addTab(tabSpec);
 		
@@ -37,8 +37,8 @@ public class MainTabWidget extends TabActivity {
 		intent = new Intent();
 		intent.setClass(this, FavoritesListingActivity.class);
 		
-		tabSpec = tabHost.newTabSpec("profile");
-		tabSpec.setIndicator("Profile", res.getDrawable(R.drawable.ic_tab_profile));
+		tabSpec = tabHost.newTabSpec("favorites");
+		tabSpec.setIndicator("Favorites", res.getDrawable(R.drawable.ic_tab_profile));
 		tabSpec.setContent(intent);
 		tabHost.addTab(tabSpec);
 		
