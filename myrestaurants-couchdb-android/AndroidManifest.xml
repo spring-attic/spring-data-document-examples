@@ -37,7 +37,10 @@
 			
 		<activity 
 			android:name="com.springsource.myrestaurants.activities.FavoritesListingActivity"
-			android:label="@string/title_fav_details" />				
+			android:label="@string/title_fav_details" />	
+			
+		<activity         
+			android:name="com.springsource.myrestaurants.activities.InfoActivity" />					
 				
     </application>
 

@@ -42,6 +42,12 @@ public class FavoritesListingActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		displayFavorites();		
+	}
+
+
+
+	private void displayFavorites() {
 		List<Map<String,String>> events = fetchRests();
 
 		List<String> restNames = fetchRestNames();
@@ -54,9 +60,29 @@ public class FavoritesListingActivity extends ListActivity {
 				new String[] { "name", "city" },
 				new int[] { R.id.title, R.id.subtitle } );*/
 		
-		this.setListAdapter(FavoriteArrayAdapter);		
+		this.setListAdapter(FavoriteArrayAdapter);
 	}
 	
+
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		displayFavorites();		
+	}
+
+
+
+	@Override
+	protected void onRestart() {
+		// TODO Auto-generated method stub
+		super.onRestart();
+		displayFavorites();		
+	}
+
+
+
 	//***************************************
     // ListActivity methods
     //***************************************

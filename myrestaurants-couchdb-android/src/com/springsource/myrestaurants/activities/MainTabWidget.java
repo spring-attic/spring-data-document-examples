@@ -44,7 +44,7 @@ public class MainTabWidget extends TabActivity {
 		
 		// add info tab
 		intent = new Intent();
-		intent.setClass(this, RestListingActivity.class);
+		intent.setClass(this, InfoActivity.class);
 		
 		tabSpec = tabHost.newTabSpec("info");
 		tabSpec.setIndicator("Info", res.getDrawable(R.drawable.ic_tab_info));
