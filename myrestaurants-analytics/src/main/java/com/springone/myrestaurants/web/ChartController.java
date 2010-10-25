@@ -1,17 +1,27 @@
 package com.springone.myrestaurants.web;
 
+import java.awt.Color;
+import java.awt.GradientPaint;
 import java.io.OutputStream;
 import java.net.UnknownHostException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.TimeSeriesCollection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.datastore.document.analytics.ControllerCounter;
 import org.springframework.datastore.document.mongodb.MongoTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +45,7 @@ public class ChartController {
 	private RestaurantDao restaurantDao;
 	
 
-	@RequestMapping("/demo-chart.png")
+	@RequestMapping("/favorites.png")
 	public void renderChart(String variation, OutputStream stream)
 			throws Exception {
 		boolean rotate = "rotate".equals(variation); // add ?variation=rotate to
@@ -44,9 +54,36 @@ public class ChartController {
 		JFreeChart chart = generateChart(rotate);
 		ChartUtilities.writeChartAsPNG(stream, chart, 750, 400);
 	}
+	
+	@RequestMapping("/controllers.png")
+	public void renderControllers(String controllerName, OutputStream stream)
+			throws Exception {		
+		JFreeChart chart = generateControllerChart(controllerName);		
+		ChartUtilities.writeChartAsPNG(stream, chart, 750, 400);
+	}
+	
+	private JFreeChart generateControllerChart(String controllerName) {
+		DefaultCategoryDataset dataset = getControllerData(controllerName);
+
+		String xAxisLabel;
+		String title;
+		if (controllerName != null) {
+			xAxisLabel = controllerName;
+			title = controllerName + " Actions"; 
+		} else {
+			xAxisLabel = "Controllers";
+			title = "Controller Invocations";
+		}
+		return ChartFactory.createBarChart(title, 
+				xAxisLabel,
+				"Number of times invoked", // y-axis label
+				dataset, PlotOrientation.VERTICAL, true, // legend displayed
+				true, // tooltips displayed
+				false); // no URLs*/
+	}
 
 	private JFreeChart generateChart(boolean rotate) {
-		DefaultCategoryDataset dataset = getData();
+		DefaultCategoryDataset dataset = getFavoritesData();
 
 		return ChartFactory.createBarChart("Favorited Restaurants", // title
 				"Restaurants", // x-axis label
@@ -57,7 +94,54 @@ public class ChartController {
 				false); // no URLs*/
 	}
 
-	private DefaultCategoryDataset getData()  {
+	private DefaultCategoryDataset getControllerData(String controllerName) {
+		MongoTemplate mongoTemplate;
+		DefaultCategoryDataset ds = null;
+		try {
+			Mongo m = new Mongo();
+			DB db = m.getDB("mvc");
+			mongoTemplate = new MongoTemplate(db, "counters");
+			mongoTemplate.afterPropertiesSet();
+			
+			List<ControllerCounter> counters;
+			ds =  new DefaultCategoryDataset();
+			
+			if (controllerName != null) {
+				counters = mongoTemplate.queryForList("counters", new BasicDBObject("name", controllerName), ControllerCounter.class);
+				for (ControllerCounter controllerCounter : counters) {
+					Map<String, Double> methodInvocations = controllerCounter.getMethods();
+					Set<Entry<String, Double>>  es = methodInvocations.entrySet();
+					for (Entry<String, Double> entry : es) {
+						ds.addValue(entry.getValue(), "invoked", entry.getKey());
+					}
+				}
+			} else {
+				counters = mongoTemplate.queryForCollection("counters", ControllerCounter.class);
+				for (ControllerCounter controllerCounter : counters) {
+					ds.addValue(controllerCounter.getCount(), "invoked (aggregate)", controllerCounter.getName());
+				}				
+			}
+			/*
+			if (result instanceof BasicDBList) {
+				BasicDBList dbList = (BasicDBList) result;
+				for (Iterator iterator = dbList.iterator(); iterator.hasNext();) {
+					DBObject dbo = (DBObject) iterator.next();
+					System.out.println(dbo);
+					Restaurant r = restaurantDao.findRestaurant(Long.parseLong(dbo.get("parameters.p1").toString()));
+					ds.addValue(Double.parseDouble(dbo.get("count").toString()), "recommended", r.getName());
+				}
+			}*/
+			return ds;
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		return ds;
+	}
+
+	
+	private DefaultCategoryDataset getFavoritesData()  {
 		MongoTemplate mongoTemplate;
 		DefaultCategoryDataset ds = null;
 		try {
@@ -67,13 +151,12 @@ public class ChartController {
 			mongoTemplate.afterPropertiesSet();
 			
 			DBObject result = getTopRecommendedRestaurants(mongoTemplate);
-			/*
+			/* Example data.
 			 * [ { "parameters.p1" : "1" , "count" : 5.0} , 
 			 *   { "parameters.p1" : "2" , "count" : 6.0} , 
 			 *   { "parameters.p1" : "3" , "count" : 3.0} , 
 			 *   { "parameters.p1" : "4" , "count" : 8.0}]
 			 */
-			//resultObject.
 			ds =  new DefaultCategoryDataset();
 			if (result instanceof BasicDBList) {
 				BasicDBList dbList = (BasicDBList) result;
@@ -84,15 +167,10 @@ public class ChartController {
 					ds.addValue(Double.parseDouble(dbo.get("count").toString()), "recommended", r.getName());
 				}
 			}
-			/*
-			ds.addValue(1, "fav-rest", "rest1");
-			ds.addValue(3, "fav-rest", "rest2");
-			ds.addValue(2, "fav-rest", "rest3");*/
 			return ds;
 			
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 		return ds;

@@ -16,9 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
 import com.mongodb.WriteResult;
-import com.springone.myrestaurants.dao.RestaurantDao;
 
 @Component
 public class DatastoreInterceptor implements ActionInterceptor {
@@ -40,14 +38,20 @@ public class DatastoreInterceptor implements ActionInterceptor {
 
 	@Override
 	public void afterCompletion(ActionExecutedContext actionExecutedContext) {
+		
 		printDebug(actionExecutedContext);
-		String controllerName = actionExecutedContext.getHandler().getClass().getSimpleName();
 		
 		MvcEvent event = createMvcEvent(actionExecutedContext);
 		
 		mongoTemplate.save(event);
+
+		storeCounterData(actionExecutedContext.getHandler().getClass().getSimpleName(), 
+						 actionExecutedContext.getHandlerMethod().getName());
 		
 		
+	}
+	
+	public void storeCounterData(String controllerName, String methodName) {
 		BasicDBObject query = new BasicDBObject("name", controllerName);
 		
 		BasicDBObject changes = new BasicDBObject();
@@ -56,12 +60,12 @@ public class DatastoreInterceptor implements ActionInterceptor {
 		
 		WriteResult r = mongoTemplate.getCollection("counters").update(query, changes, true,false);
 		System.out.println(r);
-		
-		
-		changes = new BasicDBObject("$inc", new BasicDBObject("methods." + actionExecutedContext.getHandlerMethod().getName(), 1));
+				
+		changes = new BasicDBObject("$inc", new BasicDBObject("methods." + methodName, 1));
 		r = mongoTemplate.getConnection().getCollection("counters").update(query, changes, true, false);
 		System.out.println(r);
 	}
+
 
 	private void printDebug(ActionExecutedContext actionExecutedContext) {
 		//System.out.println(actionExecutedContext);

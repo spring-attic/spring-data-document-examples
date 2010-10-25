@@ -78,11 +78,11 @@ public class SignUpController extends BaseApplicationController {
     }
 	
 
-	/*
+
 	@ModelAttribute("restaurants")
     public Collection<Restaurant> populateRestaurants() {
         return restaurantDao.findAllRestaurants();
-    }*/
+    }
 
 
 	Converter<String, Restaurant> getRestaurantConverterFromString() {
@@ -106,7 +106,6 @@ public class SignUpController extends BaseApplicationController {
         if (binder.getConversionService() instanceof GenericConversionService) {
             GenericConversionService conversionService = (GenericConversionService) binder.getConversionService();
             conversionService.addConverter(getRestaurantConverter());
-            conversionService.addConverter(getRestaurantSetConverter());
             conversionService.addConverter(getUserAccountConverter());
             conversionService.addConverter(getRestaurantConverterFromString());
         }

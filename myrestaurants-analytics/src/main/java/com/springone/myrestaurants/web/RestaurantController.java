@@ -49,9 +49,6 @@ public class RestaurantController extends BaseApplicationController {
 		account.getFavorites().add(restaurant);
 		this.userAccountDao.persist(account);
 		
-		
-		//mongoAnalytics.update(this,"addFavoriteRestaurant", map);
-		
         addDateTimeFormatPatterns(model);       
         model.addAttribute("useraccount", account);
         model.addAttribute("itemId", id);

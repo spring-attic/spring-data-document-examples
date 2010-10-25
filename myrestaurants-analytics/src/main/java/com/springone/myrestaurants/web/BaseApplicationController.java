@@ -52,6 +52,7 @@ public class BaseApplicationController {
 		};
 	}
 	
+	/*
 	protected Converter<Set<Restaurant>, String> getRestaurantSetConverter() {
 		return new Converter<Set<Restaurant>, String>() {
 			public String convert(Set<Restaurant> restaurants) {
@@ -66,6 +67,6 @@ public class BaseApplicationController {
 				return sb.toString();
 			}
 		};
-	}
+	}*/
 
 }
