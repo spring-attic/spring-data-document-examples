@@ -3,9 +3,9 @@ package com.springone.examples.mongo.myfiles;
 import java.net.UnknownHostException;
 
 import org.junit.Test;
-import org.springframework.datastore.document.mongodb.query.BasicQuery;
-import org.springframework.datastore.document.mongodb.query.QueryBuilder;
-import org.springframework.datastore.document.mongodb.query.SortSpecification.SortOrder;
+import org.springframework.data.document.mongodb.query.BasicQuery;
+import org.springframework.data.document.mongodb.query.QueryBuilder;
+import org.springframework.data.document.mongodb.query.SortSpecification.SortOrder;
 
 import com.mongodb.DB;
 import com.mongodb.Mongo;

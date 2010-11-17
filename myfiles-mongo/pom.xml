@@ -110,7 +110,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-datastore-mongodb</artifactId>
+			<artifactId>spring-data-mongodb</artifactId>
 			<version>1.0.0.BUILD-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

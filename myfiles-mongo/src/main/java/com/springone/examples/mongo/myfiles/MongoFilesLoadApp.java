@@ -3,29 +3,19 @@ package com.springone.examples.mongo.myfiles;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.dao.DataAccessException;
-import org.springframework.dao.support.PersistenceExceptionTranslator;
-import org.springframework.datastore.document.DocumentSource;
-import org.springframework.datastore.document.mongodb.MongoDocumentSource;
-import org.springframework.datastore.document.mongodb.MongoTemplate;
+import org.springframework.data.document.mongodb.MongoTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
 import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
+import com.mongodb.Mongo;
 
 @Component
 public class MongoFilesLoadApp {
 
-	DB db;
+	Mongo mongo;
 	
 	MongoTemplate documentTemplate;
 	
@@ -36,9 +26,9 @@ public class MongoFilesLoadApp {
 	MongoFileManager mongoManager;
 	
 	@Autowired
-	public void setDb(DB db) {
-		this.db = db;
-		documentTemplate = new MongoTemplate(db);
+	public void setMongo(Mongo mongo) {
+		this.mongo = mongo;
+		documentTemplate = new MongoTemplate(mongo, "test");
 	}
 
     public static void main( String[] args ) {
@@ -65,16 +55,16 @@ public class MongoFilesLoadApp {
     public void close() {
         System.out.println( "CLOSING!" );
 
-		Set<String> colls = this.db.getCollectionNames();
+		Set<String> colls = this.mongo.getDB("test").getCollectionNames();
 		System.out.println("COLLECTIONS: " + colls);
 
-		DBCollection coll = db.getCollection("myFiles");
+		DBCollection coll = this.mongo.getDB("test").getCollection("myFiles");
         System.out.println("LOADED: " + coll.count());
 	}
 
     private void init() {
         System.out.println( "INITIALIZING!" );
-        DBCollection coll = db.getCollection("myFiles");
+        DBCollection coll = this.mongo.getDB("test").getCollection("myFiles");
         if (coll.count() > 0) {
 			this.documentTemplate.dropCollection("myFiles");
         }

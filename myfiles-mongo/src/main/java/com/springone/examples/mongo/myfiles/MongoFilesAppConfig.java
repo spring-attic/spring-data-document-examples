@@ -1,17 +1,10 @@
 package com.springone.examples.mongo.myfiles;
 
-import java.net.UnknownHostException;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.CommonAnnotationBeanPostProcessor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
-import org.springframework.datastore.document.mongodb.CannotGetMongoDbConnectionException;
-import org.springframework.datastore.document.mongodb.MongoDbFactoryBean;
-
-import com.mongodb.DB;
-import com.mongodb.Mongo;
-import com.mongodb.MongoException;
+import org.springframework.data.document.mongodb.bean.factory.MongoFactoryBean;
 
 @Configuration
 public class MongoFilesAppConfig {
@@ -24,18 +17,8 @@ public class MongoFilesAppConfig {
     	return new PersistenceExceptionTranslationPostProcessor();
     }
 
-    public @Bean MongoDbFactoryBean db() {
-    	MongoDbFactoryBean bean = new MongoDbFactoryBean();
-    	bean.setDatabaseName("test");
-    	Mongo mongo;
-		try {
-			mongo = new Mongo("localhost");
-		} catch (UnknownHostException e) {
-			throw new CannotGetMongoDbConnectionException("Unnable to connect to MongoDB ", e);
-		} catch (MongoException e) {
-			throw new CannotGetMongoDbConnectionException("Unnable to connect to MongoDB ", e);
-		}
-    	bean.setMongo(mongo);
+    public @Bean MongoFactoryBean mongo() {
+    	MongoFactoryBean bean = new MongoFactoryBean();
     	return bean; 
     }
     

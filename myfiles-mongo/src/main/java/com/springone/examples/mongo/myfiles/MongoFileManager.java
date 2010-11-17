@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.datastore.document.mongodb.MongoConverter;
-import org.springframework.datastore.document.mongodb.MongoTemplate;
-import org.springframework.datastore.document.mongodb.SimpleMongoConverter;
-import org.springframework.datastore.document.mongodb.query.QueryBuilder;
+import org.springframework.data.document.mongodb.MongoConverter;
+import org.springframework.data.document.mongodb.MongoTemplate;
+import org.springframework.data.document.mongodb.SimpleMongoConverter;
+import org.springframework.data.document.mongodb.query.QueryBuilder;
 import org.springframework.stereotype.Repository;
 
-import com.mongodb.DB;
+import com.mongodb.Mongo;
 
 @Repository
 public class MongoFileManager {
@@ -18,9 +18,9 @@ public class MongoFileManager {
 	MongoTemplate mongoDbTemplate;
 	
 	@Autowired
-	public void setDb(DB db) {
+	public void setMongo(Mongo mongo) {
 		MongoConverter converter = new SimpleMongoConverter();
-		mongoDbTemplate = new MongoTemplate(db, converter);
+		mongoDbTemplate = new MongoTemplate(mongo, "test", converter);
 	}
 
     public void addFiles(List<FileEntry> files) throws DataAccessException {

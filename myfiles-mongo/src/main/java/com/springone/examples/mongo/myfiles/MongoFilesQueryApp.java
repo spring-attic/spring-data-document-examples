@@ -3,13 +3,14 @@ package com.springone.examples.mongo.myfiles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.datastore.document.mongodb.MongoTemplate;
+import org.springframework.data.document.mongodb.MongoTemplate;
 import org.springframework.stereotype.Component;
 
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
+import com.mongodb.Mongo;
 import com.mongodb.util.JSON;
 
 @Component
@@ -23,9 +24,9 @@ public class MongoFilesQueryApp {
 	MongoFileManager mongoManager;
 
 	@Autowired
-	public void init(DB db) {
+	public void init(Mongo mongo) {
 		this.db = db;
-		documentTemplate = new MongoTemplate(db);
+		documentTemplate = new MongoTemplate(mongo, "test");
 	}
 
     public static void main( String[] args ) {
