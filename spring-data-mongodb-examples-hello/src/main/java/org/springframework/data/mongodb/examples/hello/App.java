@@ -12,7 +12,11 @@ public class App
 		System.out.println("Bootstrapping HelloMongo");
 
 		ConfigurableApplicationContext context = null;
+		// use @Configuration using Java:
         context = new ClassPathXmlApplicationContext("META-INF/spring/bootstrap.xml");
+
+		// use XML application context:
+        //context = new ClassPathXmlApplicationContext("META-INF/spring/applicationContext.xml");
 
         HelloMongo hello = context.getBean(HelloMongo.class);
         hello.run();

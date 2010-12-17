@@ -11,18 +11,25 @@ import com.mongodb.Mongo;
 @Configuration
 public class AppConfig {
 
-    public @Bean PersistenceExceptionTranslationPostProcessor persistenceExceptionTranslationPostProcessor() {
-    	return new PersistenceExceptionTranslationPostProcessor();
+    public @Bean MongoTemplate mongoTemplate(Mongo mongo) {
+    	MongoTemplate mongoTemplate = new MongoTemplate(mongo, "test", "HelloMongo");
+    	return mongoTemplate;
     }
 
+    /*
+     * Factory bean that creates the Mongo instance
+     */
     public @Bean MongoFactoryBean mongo() {
-    	MongoFactoryBean bean = new MongoFactoryBean();
-    	return bean; 
+    	MongoFactoryBean mongo = new MongoFactoryBean();
+    	mongo.setHost("localhost");
+    	return mongo; 
     }
     
-    public @Bean MongoTemplate mongoTemplate(Mongo mongo) {
-    	MongoTemplate mt = new MongoTemplate(mongo, "test", "HelloMongo");
-    	return mt;
+	/* 
+	 * Use this post processor to translate any MongoExceptions thrown in @Repository annotated classes
+	 */
+    public @Bean PersistenceExceptionTranslationPostProcessor persistenceExceptionTranslationPostProcessor() {
+    	return new PersistenceExceptionTranslationPostProcessor();
     }
 
 }

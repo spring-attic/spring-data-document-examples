@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.document.mongodb.MongoTemplate;
 import org.springframework.data.mongodb.examples.hello.domain.Account;
 import org.springframework.data.mongodb.examples.hello.domain.Person;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.mongodb.DBCollection;
 
-@Component
+@Repository
 public class HelloMongo {
 	
 	@Autowired
@@ -26,7 +26,7 @@ public class HelloMongo {
 
 		Person test = createTestPerson();
 		
-		mongoTemplate.insert("HelloMongo", test);
+		mongoTemplate.insert(test);
 		
 		DBCollection results = mongoTemplate.getCollection("HelloMongo");
 		System.out.println("Results: " + results.findOne());
