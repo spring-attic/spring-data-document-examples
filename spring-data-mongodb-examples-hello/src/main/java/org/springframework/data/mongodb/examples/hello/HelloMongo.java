@@ -1,8 +1,6 @@
 package org.springframework.data.mongodb.examples.hello;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,6 @@ import org.springframework.data.mongodb.examples.hello.domain.Person;
 import org.springframework.stereotype.Component;
 
 import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
 
 @Component
 public class HelloMongo {
@@ -21,7 +18,7 @@ public class HelloMongo {
 	MongoTemplate mongoTemplate;
 
 	public void run() {
-		if (mongoTemplate.getDb().getCollectionNames().contains("HelloMongo")) {
+		if (mongoTemplate.getCollectionNames().contains("HelloMongo")) {
 			mongoTemplate.dropCollection("HelloMongo");
 		}
 		
