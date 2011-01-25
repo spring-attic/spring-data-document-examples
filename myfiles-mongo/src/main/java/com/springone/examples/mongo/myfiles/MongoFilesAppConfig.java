@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.CommonAnnotationBeanPostProcessor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
-import org.springframework.data.document.mongodb.bean.factory.MongoFactoryBean;
+import org.springframework.data.document.mongodb.MongoFactoryBean;
 
 @Configuration
 public class MongoFilesAppConfig {
@@ -23,7 +23,7 @@ public class MongoFilesAppConfig {
     }
     
     public @Bean FileManager fileManager() {
-    	return new FileManager("/Users/trisberg/Books");
+    	return new FileManager("/Users/trisberg/Documents");
     }
     
 }

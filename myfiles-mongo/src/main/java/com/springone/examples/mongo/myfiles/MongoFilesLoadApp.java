@@ -38,12 +38,14 @@ public class MongoFilesLoadApp {
         context = new ClassPathXmlApplicationContext("META-INF/spring/bootstrap.xml");
 
         MongoFilesLoadApp app = context.getBean(MongoFilesLoadApp.class);
-        app.init();
+
+		app.init();
         
         app.run();
         
         app.close();
-        context.close();
+
+		context.close();
         System.out.println( "DONE!" );
     }
     
