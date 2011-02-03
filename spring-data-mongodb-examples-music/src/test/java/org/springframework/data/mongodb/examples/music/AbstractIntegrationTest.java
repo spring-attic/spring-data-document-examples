@@ -89,7 +89,7 @@ public abstract class AbstractIntegrationTest {
      */
     protected void assertSingleGruxAlbum(DBObject query) {
 
-        List<Album> result = operations.query(query, Album.class);
+        List<Album> result = operations.find(query, Album.class);
 
         assertThat(result, is(notNullValue()));
         assertThat(result.size(), is(1));
@@ -121,7 +121,7 @@ public abstract class AbstractIntegrationTest {
      */
     protected void assertSinglePursuitAlbum(DBObject query) {
 
-        List<Album> result = operations.query(query, Album.class);
+        List<Album> result = operations.find(query, Album.class);
 
         assertThat(result, is(notNullValue()));
         assertThat(result.size(), is(1));

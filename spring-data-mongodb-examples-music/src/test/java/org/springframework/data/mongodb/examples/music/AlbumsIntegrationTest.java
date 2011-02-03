@@ -80,7 +80,7 @@ public class AlbumsIntegrationTest extends AbstractIntegrationTest {
 
         DBObject query =
             parseQuery("{ 'tracks.name' : { '$regex' : '.*it.*' , '$options' : '' }}");
-        assertBothAlbums(operations.query(query, Album.class));
+        assertBothAlbums(operations.find(query, Album.class));
     }
 
 
