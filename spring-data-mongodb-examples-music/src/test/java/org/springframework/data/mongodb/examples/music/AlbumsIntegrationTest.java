@@ -1,13 +1,13 @@
 package org.springframework.data.mongodb.examples.music;
 
+import static org.springframework.data.document.mongodb.query.Criteria.*;
+
 import org.junit.Test;
 import org.springframework.data.document.mongodb.MongoOperations;
 import org.springframework.data.document.mongodb.MongoTemplate;
+import org.springframework.data.document.mongodb.query.BasicQuery;
+import org.springframework.data.document.mongodb.query.Query;
 import org.springframework.test.context.ContextConfiguration;
-
-import com.mongodb.DBObject;
-import com.mongodb.QueryBuilder;
-import com.mongodb.util.JSON;
 
 
 /**
@@ -45,15 +45,17 @@ public class AlbumsIntegrationTest extends AbstractIntegrationTest {
     @Test
     public void lookupAlbumByIdWithQueryBuilder() throws Exception {
 
-        DBObject query = QueryBuilder.start("_id").is(bigWhiskey.getId()).get();
-        assertSingleGruxAlbum(query);
+        Query build =
+            new Query(where("_id").is(bigWhiskey.getId()));
+
+        assertSingleGruxAlbum(build);
     }
 
 
     @Test
     public void lookupAlbumByIdUsingJson() throws Exception {
 
-        DBObject query =
+        Query query =
             parseQuery("{'_id' : { '$oid' : '%s' }}", bigWhiskey.getId());
         assertSingleGruxAlbum(query);
     }
@@ -62,7 +64,7 @@ public class AlbumsIntegrationTest extends AbstractIntegrationTest {
     @Test
     public void lookupAlbumsByTrackNameUsingJson() throws Exception {
 
-        DBObject query = parseQuery("{'tracks.name' : 'Wheels'}");
+        Query query = parseQuery("{'tracks.name' : 'Wheels'}");
         assertSinglePursuitAlbum(query);
     }
 
@@ -70,23 +72,24 @@ public class AlbumsIntegrationTest extends AbstractIntegrationTest {
     @Test
     public void lookupAlbumByTrackNameUsingQueryBuilder() {
 
-        DBObject query = QueryBuilder.start("tracks.name").is("Grux").get();
-        assertSingleGruxAlbum(query);
+        Query spec =
+            new Query(where("tracks.name").is("Grux"));
+        assertSingleGruxAlbum(spec);
     }
 
 
     @Test
     public void lookupAlbumByTrackNamePattern() throws Exception {
 
-        DBObject query =
+        Query query =
             parseQuery("{ 'tracks.name' : { '$regex' : '.*it.*' , '$options' : '' }}");
         assertBothAlbums(operations.find(query, Album.class));
     }
 
 
-    private DBObject parseQuery(String query, Object... arguments) {
+    private Query parseQuery(String query, Object... arguments) {
 
-        return (DBObject) JSON.parse(String.format(query, arguments));
+        return new BasicQuery(String.format(query, arguments));
     }
 
 }

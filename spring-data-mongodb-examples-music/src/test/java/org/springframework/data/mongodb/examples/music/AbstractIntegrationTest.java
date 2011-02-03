@@ -12,9 +12,8 @@ import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.document.mongodb.MongoOperations;
+import org.springframework.data.document.mongodb.query.Query;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import com.mongodb.DBObject;
 
 
 /**
@@ -87,7 +86,7 @@ public abstract class AbstractIntegrationTest {
      * 
      * @param query
      */
-    protected void assertSingleGruxAlbum(DBObject query) {
+    protected void assertSingleGruxAlbum(Query query) {
 
         List<Album> result = operations.find(query, Album.class);
 
@@ -119,7 +118,7 @@ public abstract class AbstractIntegrationTest {
      * 
      * @param query
      */
-    protected void assertSinglePursuitAlbum(DBObject query) {
+    protected void assertSinglePursuitAlbum(Query query) {
 
         List<Album> result = operations.find(query, Album.class);
 
