@@ -127,6 +127,14 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.5</version>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.1.1</version>
+				<configuration>
+					<mainClass>org.springframework.data.mongodb.examples.hello.App</mainClass>
+				</configuration>
+			</plugin>
 			<!-- IDE -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
