@@ -8,7 +8,7 @@ import java.util.List;
 
 public class FileManager {
 	
-	String startDirectory = "/";
+	String startDirectory = ".";
 	
 	public FileManager(String startDirectory) {
 		this.startDirectory = startDirectory;

@@ -23,7 +23,7 @@ public class MongoFilesAppConfig {
     }
     
     public @Bean FileManager fileManager() {
-    	return new FileManager("/Users/trisberg/Documents");
+    	return new FileManager(".");
     }
     
 }

@@ -1,16 +1,16 @@
 package com.springone.examples.mongo.myfiles;
 
+import static org.springframework.data.document.mongodb.query.Criteria.where;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.document.mongodb.MongoConverter;
 import org.springframework.data.document.mongodb.MongoTemplate;
-import org.springframework.data.document.mongodb.SimpleMongoConverter;
+import org.springframework.data.document.mongodb.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.mongodb.Mongo;
-import com.mongodb.QueryBuilder;
 
 @Repository
 public class MongoFileManager {
@@ -19,8 +19,7 @@ public class MongoFileManager {
 	
 	@Autowired
 	public void setMongo(Mongo mongo) {
-		MongoConverter converter = new SimpleMongoConverter();
-		mongoDbTemplate = new MongoTemplate(mongo, "test", converter);
+		mongoDbTemplate = new MongoTemplate(mongo, "test");
 	}
 
     public void addFiles(List<FileEntry> files) throws DataAccessException {
@@ -33,10 +32,9 @@ public class MongoFileManager {
     }
     
     public List<FileEntry> queryForLargeFiles(long size) throws DataAccessException {
-    	QueryBuilder qb = new QueryBuilder();
-    	qb.put("size").greaterThan(size);
-		List<FileEntry> results = this.mongoDbTemplate.
-				query("myFiles", qb.get(), FileEntry.class);
+    	Query q = new Query(where("size").gt(size));
+		List<FileEntry> results = 
+				this.mongoDbTemplate.find("myFiles", q, FileEntry.class);
 		return results;
     }
     
