@@ -6,12 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.datastore.document.analytics.MvcEvent;
-import org.springframework.datastore.document.analytics.Parameters;
-import org.springframework.datastore.document.mongodb.MongoTemplate;
-import org.springframework.datastore.document.web.servlet.ActionExecutedContext;
-import org.springframework.datastore.document.web.servlet.ActionExecutingContext;
-import org.springframework.datastore.document.web.servlet.ActionInterceptor;
+import org.springframework.data.document.analytics.MvcEvent;
+import org.springframework.data.document.analytics.Parameters;
+import org.springframework.data.document.mongodb.MongoTemplate;
+import org.springframework.data.document.web.servlet.ActionExecutedContext;
+import org.springframework.data.document.web.servlet.ActionExecutingContext;
+import org.springframework.data.document.web.servlet.ActionInterceptor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -62,7 +62,7 @@ public class DatastoreInterceptor implements ActionInterceptor {
 		System.out.println(r);
 				
 		changes = new BasicDBObject("$inc", new BasicDBObject("methods." + methodName, 1));
-		r = mongoTemplate.getConnection().getCollection("counters").update(query, changes, true, false);
+		r = mongoTemplate.getCollection("counters").update(query, changes, true, false);
 		System.out.println(r);
 	}
 

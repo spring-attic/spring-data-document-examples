@@ -4,10 +4,10 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/spring-datastore-mongodb/spring-datastore-mongodb">
+        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/spring-data-mongodb/spring-data-mongodb">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/spring-datastore-document-core/spring-datastore-document-core">
+        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/spring-data-document-core/spring-data-document-core">
             <dependency-type>uses</dependency-type>
         </dependent-module>
     <property name="context-root" value="myrestaurants-analytics"/>

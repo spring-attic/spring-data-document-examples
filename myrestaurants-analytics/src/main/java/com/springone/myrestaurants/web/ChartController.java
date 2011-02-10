@@ -1,5 +1,7 @@
 package com.springone.myrestaurants.web;
 
+import static org.springframework.data.document.mongodb.query.Criteria.where;
+
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.io.OutputStream;
@@ -21,8 +23,11 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.datastore.document.analytics.ControllerCounter;
-import org.springframework.datastore.document.mongodb.MongoTemplate;
+import org.springframework.data.document.analytics.ControllerCounter;
+import org.springframework.data.document.mongodb.MongoTemplate;
+import org.springframework.data.document.mongodb.query.BasicQuery;
+import org.springframework.data.document.mongodb.query.Criteria;
+import org.springframework.data.document.mongodb.query.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -99,15 +104,14 @@ public class ChartController {
 		DefaultCategoryDataset ds = null;
 		try {
 			Mongo m = new Mongo();
-			DB db = m.getDB("mvc");
-			mongoTemplate = new MongoTemplate(db, "counters");
+			mongoTemplate = new MongoTemplate(m, "counters");
 			mongoTemplate.afterPropertiesSet();
 			
 			List<ControllerCounter> counters;
 			ds =  new DefaultCategoryDataset();
 			
 			if (controllerName != null) {
-				counters = mongoTemplate.queryForList("counters", new BasicDBObject("name", controllerName), ControllerCounter.class);
+				counters = mongoTemplate.find("counters", new Query(where("name").is(controllerName)), ControllerCounter.class);
 				for (ControllerCounter controllerCounter : counters) {
 					Map<String, Double> methodInvocations = controllerCounter.getMethods();
 					Set<Entry<String, Double>>  es = methodInvocations.entrySet();
@@ -116,7 +120,7 @@ public class ChartController {
 					}
 				}
 			} else {
-				counters = mongoTemplate.queryForCollection("counters", ControllerCounter.class);
+				counters = mongoTemplate.getCollection("counters", ControllerCounter.class);
 				for (ControllerCounter controllerCounter : counters) {
 					ds.addValue(controllerCounter.getCount(), "invoked (aggregate)", controllerCounter.getName());
 				}				
@@ -146,8 +150,7 @@ public class ChartController {
 		DefaultCategoryDataset ds = null;
 		try {
 			Mongo m = new Mongo();
-			DB db = m.getDB("mvc");
-			mongoTemplate = new MongoTemplate(db, "mvc");
+			mongoTemplate = new MongoTemplate(m, "mvc");
 			mongoTemplate.afterPropertiesSet();
 			
 			DBObject result = getTopRecommendedRestaurants(mongoTemplate);
@@ -182,7 +185,7 @@ public class ChartController {
 	
 	public DBObject getTopRecommendedRestaurants(MongoTemplate mongoTemplate) {
 		//This circumvents exception translation
-		DBCollection collection = mongoTemplate.getConnection().getCollection("mvc");
+		DBCollection collection = mongoTemplate.getCollection("mvc");
 		
 		Date startDate = createDate(1, 5, 2010); 
 		Date endDate = createDate(1,12,2010);
