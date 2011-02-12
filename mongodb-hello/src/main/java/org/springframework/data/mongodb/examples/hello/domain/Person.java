@@ -1,5 +1,6 @@
 package org.springframework.data.mongodb.examples.hello.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Person {
@@ -10,7 +11,16 @@ public class Person {
 	
 	private int age;
 	
-	private List<Account> accounts;
+	private List<Account> accounts = new ArrayList<Account>();
+
+	public Person() {
+	}
+
+	public Person(String name, int age) {
+		super();
+		this.name = name;
+		this.age = age;
+	}
 
 	public String getId() {
 		return id;
@@ -42,6 +52,12 @@ public class Person {
 
 	public void setAccounts(List<Account> accounts) {
 		this.accounts = accounts;
+	}
+
+	@Override
+	public String toString() {
+		return "Person [id=" + id + ", name=" + name + ", age=" + age
+				+ ", accounts=" + accounts + "]";
 	}
 
 }

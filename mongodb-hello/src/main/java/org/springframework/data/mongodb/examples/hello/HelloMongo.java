@@ -1,8 +1,5 @@
 package org.springframework.data.mongodb.examples.hello;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.document.mongodb.MongoTemplate;
 import org.springframework.data.mongodb.examples.hello.domain.Account;
@@ -24,26 +21,14 @@ public class HelloMongo {
 		
 		mongoTemplate.createCollection("HelloMongo");
 
-		Person test = createTestPerson();
+		Person p = new Person("John", 39);
+		Account a = new Account("1234-59873-893-1", Account.Type.SAVINGS, 123.45D);
+		p.getAccounts().add(a);
 		
-		mongoTemplate.insert(test);
+		mongoTemplate.insert(p);
 		
 		DBCollection results = mongoTemplate.getCollection("HelloMongo");
 		System.out.println("Results: " + results.findOne());
-	}
-
-	private Person createTestPerson() {
-		Person p = new Person();
-		p.setName("John");
-		p.setAge(39);
-		List<Account> accounts = new ArrayList<Account>();
-		Account a = new Account();
-		a.setAccountNumber("1234-59873-893-1");
-		a.setAccountType(Account.Type.SAVINGS);
-		a.setBalance(123.45D);
-		accounts.add(a);
-		p.setAccounts(accounts);
-		return p;
 	}
 
 }

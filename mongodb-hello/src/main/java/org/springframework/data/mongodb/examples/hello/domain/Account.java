@@ -14,6 +14,13 @@ public class Account {
 	
 	private Double balance;
 
+	public Account(String accountNumber, Type accountType, Double balance) {
+		super();
+		this.accountNumber = accountNumber;
+		this.accountType = accountType;
+		this.balance = balance;
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -44,6 +51,12 @@ public class Account {
 
 	public void setBalance(Double balance) {
 		this.balance = balance;
+	}
+
+	@Override
+	public String toString() {
+		return "Account [id=" + id + ", accountNumber=" + accountNumber
+				+ ", accountType=" + accountType + ", balance=" + balance + "]";
 	}
 
 }
