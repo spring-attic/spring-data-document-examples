@@ -6,7 +6,7 @@
     <bean id="mongoTemplate" class="org.springframework.data.document.mongodb.MongoTemplate">
     	<constructor-arg name="mongo" ref="mongo"/>
     	<constructor-arg name="databaseName" value="test"/>
-    	<constructor-arg name="defaultCollectionName" value="HelloMongo"/>
+    	<constructor-arg name="defaultCollectionName" value="MyCollection"/>
     </bean>
 
 	<!-- Factory bean that creates the Mongo instance -->

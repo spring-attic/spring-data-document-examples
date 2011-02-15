@@ -14,6 +14,9 @@ public class Account {
 	
 	private Double balance;
 
+	public Account(){
+	}
+
 	public Account(String accountNumber, Type accountType, Double balance) {
 		super();
 		this.accountNumber = accountNumber;

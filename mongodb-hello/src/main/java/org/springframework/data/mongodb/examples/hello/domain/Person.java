@@ -50,6 +50,10 @@ public class Person {
 		return accounts;
 	}
 
+	public void addAccount(Account account) {
+		this.accounts.add(account);
+	}
+
 	public void setAccounts(List<Account> accounts) {
 		this.accounts = accounts;
 	}
