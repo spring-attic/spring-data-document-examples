@@ -42,7 +42,7 @@ public class MongoFilesQueryApp {
     
     public void run() {
 		System.out.println("ALL [" + mongoManager.queryForAllFiles().size() + "]");
-    	System.out.println("QRY [" + mongoManager.queryForLargeFiles(10000000).size() + "]");
+    	System.out.println("QRY [" + mongoManager.queryForLargeFiles(10000).size() + "]");
     }
 
 }

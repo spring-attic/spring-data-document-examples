@@ -7,7 +7,8 @@
 	<version>0.1.0.BUILD-SNAPSHOT</version>
 	<name>myfiles-mongo</name>
 	<properties>
-		<spring.version>3.0.4.RELEASE</spring.version>
+		<spring.version>3.0.5.RELEASE</spring.version>
+		<spring.data.mongo.version>1.0.0.M1</spring.data.mongo.version>
 		<slf4j.version>1.6.1</slf4j.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	<spring-security.version>3.0.2.RELEASE</spring-security.version>
@@ -111,7 +112,7 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-mongodb</artifactId>
-			<version>1.0.0.BUILD-SNAPSHOT</version>
+			<version>${spring.data.mongo.version}</version>
 		</dependency>
 	</dependencies>
 	<build>
