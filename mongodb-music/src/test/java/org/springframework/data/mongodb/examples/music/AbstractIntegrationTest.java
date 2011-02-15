@@ -37,7 +37,7 @@ public abstract class AbstractIntegrationTest {
     @Before
     public void setUp() {
 
-        operations.dropCollection("music");
+        operations.dropCollection("album");
 
         albums = new ArrayList<Album>();
 
