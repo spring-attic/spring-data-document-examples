@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
+import org.springframework.data.document.mongodb.mapping.Document;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -13,18 +14,13 @@ import org.springframework.util.StringUtils;
  * 
  * @author Oliver Gierke
  */
+@Document
 public class Album {
 
     private ObjectId id;
     private String title;
     private String artist;
     private List<Track> tracks = new ArrayList<Track>();
-
-
-    protected Album() {
-
-    }
-
 
     /**
      * Creates a new {@link Album} with the given title and artist.

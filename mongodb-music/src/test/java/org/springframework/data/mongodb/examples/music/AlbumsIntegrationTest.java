@@ -7,7 +7,6 @@ import org.springframework.data.document.mongodb.MongoOperations;
 import org.springframework.data.document.mongodb.MongoTemplate;
 import org.springframework.data.document.mongodb.query.BasicQuery;
 import org.springframework.data.document.mongodb.query.Query;
-import org.springframework.test.context.ContextConfiguration;
 
 
 /**
@@ -16,7 +15,6 @@ import org.springframework.test.context.ContextConfiguration;
  * 
  * @author Oliver Gierke
  */
-@ContextConfiguration
 public class AlbumsIntegrationTest extends AbstractIntegrationTest {
 
     /*
@@ -33,12 +31,6 @@ public class AlbumsIntegrationTest extends AbstractIntegrationTest {
 
         // Stores both albums
         operations.insertList(COLLECTION, albums);
-    }
-
-
-    @Test
-    public void createCollection() {
-
     }
 
 

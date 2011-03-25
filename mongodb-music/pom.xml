@@ -27,6 +27,14 @@
 			<name>Spring Maven Milestone Repository</name>
 			<url>http://maven.springframework.org/milestone</url>
 		</repository>
+		<repository>
+			<id>querydsl</id>
+			<name>Mysema QueryDsl</name>
+			<url>http://source.mysema.com/maven2/releases</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
 	</repositories>
 
 	<dependencies>
@@ -78,6 +86,27 @@
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-mongodb</artifactId>
 			<version>${spring.data.mongo.version}</version>
+		</dependency>
+		
+		<!-- Querydsl -->
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-mongodb</artifactId>
+			<version>2.1.1</version>
+			<optional>true</optional>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.code.morphia</groupId>
+					<artifactId>morphia</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-apt</artifactId>
+			<version>2.1.1</version>
+			<scope>provided</scope>
 		</dependency>
 		
 		<!-- Test dependencies -->
@@ -165,6 +194,23 @@
 					<downloadSources>true</downloadSources>
 					<dependenciesAsLibraries>true</dependenciesAsLibraries>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.mysema.maven</groupId>
+				<artifactId>maven-apt-plugin</artifactId>
+				<version>1.0</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>target/generated-sources/queries</outputDirectory>
+							<processor>org.springframework.data.document.mongodb.repository.MongoAnnotationProcessor</processor>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

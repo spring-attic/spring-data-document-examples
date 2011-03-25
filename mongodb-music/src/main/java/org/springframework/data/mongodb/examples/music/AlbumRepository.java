@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.document.mongodb.repository.MongoRepository;
+import org.springframework.data.document.mongodb.repository.QueryDslPredicateExecutor;
 
 
 /**
@@ -11,7 +12,7 @@ import org.springframework.data.document.mongodb.repository.MongoRepository;
  * 
  * @author Oliver Gierke
  */
-public interface AlbumRepository extends MongoRepository<Album, ObjectId> {
+public interface AlbumRepository extends MongoRepository<Album, ObjectId>, QueryDslPredicateExecutor<Album> {
 
     /**
      * Queries {@link Album}s by filtering on {@code tracks.name}.
