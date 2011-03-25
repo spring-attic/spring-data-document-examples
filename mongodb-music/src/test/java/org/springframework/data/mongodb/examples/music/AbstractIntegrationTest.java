@@ -25,6 +25,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 public abstract class AbstractIntegrationTest {
 
+    static final String COLLECTION = "album";
+
     @Autowired
     MongoOperations operations;
 
@@ -37,7 +39,7 @@ public abstract class AbstractIntegrationTest {
     @Before
     public void setUp() {
 
-        operations.dropCollection("album");
+        operations.dropCollection(COLLECTION);
 
         albums = new ArrayList<Album>();
 
@@ -88,7 +90,7 @@ public abstract class AbstractIntegrationTest {
      */
     protected void assertSingleGruxAlbum(Query query) {
 
-        List<Album> result = operations.find(query, Album.class);
+        List<Album> result = operations.find(COLLECTION, query, Album.class);
 
         assertThat(result, is(notNullValue()));
         assertThat(result.size(), is(1));
@@ -120,7 +122,7 @@ public abstract class AbstractIntegrationTest {
      */
     protected void assertSinglePursuitAlbum(Query query) {
 
-        List<Album> result = operations.find(query, Album.class);
+        List<Album> result = operations.find(COLLECTION, query, Album.class);
 
         assertThat(result, is(notNullValue()));
         assertThat(result.size(), is(1));

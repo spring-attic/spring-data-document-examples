@@ -27,7 +27,7 @@ public class AlbumRepositoryIntegrationTest extends AbstractIntegrationTest {
     public void createAlbum() throws Exception {
 
         repository.save(albums);
-        assertSingleGruxAlbum(repository.findById(bigWhiskey.getId()));
+        assertSingleGruxAlbum(repository.findOne(bigWhiskey.getId()));
     }
 
 

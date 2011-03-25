@@ -9,9 +9,8 @@
 	<mongo:mongo id="mongo" />
 
 	<bean id="mongoTemplate" class="org.springframework.data.document.mongodb.MongoTemplate">
-		<constructor-arg name="mongo" ref="mongo" />
-		<constructor-arg name="databaseName" value="music" />
-		<constructor-arg name="defaultCollectionName" value="album" />
+		<constructor-arg ref="mongo" />
+		<constructor-arg value="music" />
 	</bean>
 	
 	<!-- 
