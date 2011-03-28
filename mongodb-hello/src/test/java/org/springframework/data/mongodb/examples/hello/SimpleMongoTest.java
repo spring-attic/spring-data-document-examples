@@ -99,7 +99,7 @@ public class SimpleMongoTest {
 		p4.addAccount(new Account("719-100-0019", Account.Type.SAVINGS, 1209.10d));
 		mongoTemplate.insert(p4);
 		
-		assertEquals(4, mongoTemplate.getCollection("HelloMongo").count());
+		assertEquals(4, mongoTemplate.getCollection("MyCollection").count());
 		
 		List<Person> result = mongoTemplate.find(
 				new Query(where("age").lt(50)).and(where("accounts.balance").gt(1000.00d)), 
@@ -126,7 +126,7 @@ public class SimpleMongoTest {
 		p4.addAccount(new Account("719-100-0019", Account.Type.SAVINGS, 1209.10d));
 		mongoTemplate.insert(p4);
 		
-		assertEquals(4, mongoTemplate.getCollection("HelloMongo").count());
+		assertEquals(4, mongoTemplate.getCollection("MyCollection").count());
 		
 		WriteResult wr = mongoTemplate.updateMulti(
 				new Query(where("accounts.accountType").not().is(Account.Type.SAVINGS)),
