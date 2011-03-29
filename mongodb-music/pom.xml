@@ -6,7 +6,7 @@
 	<artifactId>spring-data-mongodb-examples-music</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>spring-data-mongodb-examples-hello</name>
+	<name>spring-data-mongodb-examples-music</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
