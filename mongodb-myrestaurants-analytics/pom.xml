@@ -8,11 +8,11 @@
 	<name>myrestaurants-analytics</name>
 	<properties>
 		<spring.version>3.0.5.RELEASE</spring.version>
-		<spring.data.mongo.version>1.0.0.M1</spring.data.mongo.version>
-		<aspectj.version>1.6.10.RELEASE</aspectj.version>
+		<spring.data.mongo.version>1.0.0.M2</spring.data.mongo.version>
+		<aspectj.version>1.6.11.RELEASE</aspectj.version>
 		<slf4j.version>1.6.1</slf4j.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	<spring-security.version>3.0.2.RELEASE</spring-security.version>
+		<spring-security.version>3.0.2.RELEASE</spring-security.version>
     </properties>
 	<repositories>
         <repository>
