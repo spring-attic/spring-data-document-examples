@@ -30,7 +30,7 @@ public class Stars {
     private int value;
 
 
-    public Stars(int value) {
+    private Stars(int value) {
 
         Assert.isTrue(value >= -1, "Value must be positive or 0!");
         this.value = value;

@@ -3,13 +3,10 @@ package org.springframework.data.mongodb.examples.music;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
-import com.mysema.query.annotations.QueryEmbeddable;
-
 
 /**
  * @author Oliver Gierke
  */
-@QueryEmbeddable
 public class Track {
 
     private int number;
