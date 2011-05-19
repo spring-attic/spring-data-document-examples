@@ -104,7 +104,7 @@ public class ChartController {
 		DefaultCategoryDataset ds = null;
 		try {
 			Mongo m = new Mongo();
-			mongoTemplate = new MongoTemplate(m, "counters");
+			mongoTemplate = new MongoTemplate(m, "mvc", "counters");
 			mongoTemplate.afterPropertiesSet();
 			
 			List<ControllerCounter> counters;

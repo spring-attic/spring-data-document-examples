@@ -14,7 +14,7 @@ public class MongoConfiguration {
 	public MongoTemplate mongoTemplate() throws Exception {
 
 		Mongo m = new Mongo();
-		MongoTemplate mongoTemplate = new MongoTemplate(m, "mvc");
+		MongoTemplate mongoTemplate = new MongoTemplate(m, "mvc", "mvc");
 		mongoTemplate.afterPropertiesSet();
 		if (!mongoTemplate.collectionExists("mvc")) {
 			mongoTemplate.createCollection("mvc");

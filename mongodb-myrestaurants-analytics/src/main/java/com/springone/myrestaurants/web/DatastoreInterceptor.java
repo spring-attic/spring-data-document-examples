@@ -43,6 +43,7 @@ public class DatastoreInterceptor implements ActionInterceptor {
 		
 		MvcEvent event = createMvcEvent(actionExecutedContext);
 		
+		
 		mongoTemplate.save(event);
 
 		storeCounterData(actionExecutedContext.getHandler().getClass().getSimpleName(), 
