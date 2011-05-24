@@ -11,12 +11,6 @@
 	<bean id="mongoTemplate" class="org.springframework.data.document.mongodb.MongoTemplate">
 		<constructor-arg ref="mongo" />
 		<constructor-arg value="music" />
-		<constructor-arg>
-			<null />
-		</constructor-arg>
-		<constructor-arg ref="converter" />
 	</bean>
-	
-	<mongo:mapping-converter id="converter" />
 
 </beans>
