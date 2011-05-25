@@ -1,12 +1,12 @@
 package com.springone.myrestaurants.config;
 
 
+import com.springone.myrestaurants.web.DatastoreInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.data.document.web.servlet.ActionInterceptor;
-import org.springframework.data.document.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter;
 import org.springframework.format.support.FormattingConversionService;
 import org.springframework.format.support.FormattingConversionServiceFactoryBean;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
@@ -18,27 +18,26 @@ import org.springframework.http.converter.xml.XmlAwareFormHttpMessageConverter;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.bind.support.ConfigurableWebBindingInitializer;
-
-import com.springone.myrestaurants.web.DatastoreInterceptor;
+import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter;
 
 @Configuration
 public class HandlerAdapterConfiguration {
 
 	@Autowired
 	private DatastoreInterceptor datastoreInterceptor;
-	
+
 	@Bean
 	public AnnotationMethodHandlerAdapter annotationMethodHandlerAdapter() {
 		AnnotationMethodHandlerAdapter adapter = new AnnotationMethodHandlerAdapter();
-		
-		ActionInterceptor[] interceptors = new ActionInterceptor[] {datastoreInterceptor};
-		adapter.setActionInterceptors(interceptors);
-		
+
+		ActionInterceptor[] interceptors = new ActionInterceptor[]{datastoreInterceptor};
+		//adapter.setActionInterceptors(interceptors);
+
 		ConfigurableWebBindingInitializer wbi = new ConfigurableWebBindingInitializer();
 		wbi.setValidator(getValidator());
 		wbi.setConversionService(conversionService());
-		
-		adapter.setWebBindingInitializer(wbi);		
+
+		adapter.setWebBindingInitializer(wbi);
 		adapter.setMessageConverters(getMessageConverters());
 		adapter.setOrder(-1);
 		return adapter;
@@ -48,10 +47,10 @@ public class HandlerAdapterConfiguration {
 	public ConversionService conversionService() {
 		FormattingConversionServiceFactoryBean fb = new FormattingConversionServiceFactoryBean();
 		fb.afterPropertiesSet();
-		FormattingConversionService cs = fb.getObject();		
+		FormattingConversionService cs = fb.getObject();
 		return cs;
 	}
-	
+
 	private Validator getValidator() {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
@@ -59,20 +58,19 @@ public class HandlerAdapterConfiguration {
 	}
 
 	private HttpMessageConverter<?>[] getMessageConverters() {
-		HttpMessageConverter<?>[] converters = new HttpMessageConverter<?>[] {
+		HttpMessageConverter<?>[] converters = new HttpMessageConverter<?>[]{
 				new ByteArrayHttpMessageConverter(),
 				new StringHttpMessageConverter(),
 				new ResourceHttpMessageConverter(),
 				new SourceHttpMessageConverter(),
 				new XmlAwareFormHttpMessageConverter(),
-				
+
 		};
 		return converters;
-		
-	}
-	
 
-	
+	}
+
+
 	/*
 	@Bean
 	public ConfigurableWebBindingInitializer configurableWebBindingInitializer() {
@@ -86,5 +84,5 @@ public class HandlerAdapterConfiguration {
 		FormattingConversionServiceFactoryBean conversionServiceFB = new FormattingConversionServiceFactoryBean();
 		return conversionServiceFB;
 	}*/
-	
+
 }

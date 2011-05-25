@@ -1,5 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+				 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.springframework.data</groupId>
@@ -11,23 +11,23 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	<spring.version>3.0.5.RELEASE</spring.version>
-	<spring.data.mongo.version>1.0.0.M2</spring.data.mongo.version>
-	<slf4j.version>1.6.1</slf4j.version>
+		<spring.version>3.0.5.RELEASE</spring.version>
+		<spring.data.mongo.version>1.0.0.BUILD-SNAPSHOT</spring.data.mongo.version>
+		<slf4j.version>1.6.1</slf4j.version>
 	</properties>
 
 	<repositories>
-        <repository>
-            <id>spring-maven-release</id>
-            <name>Spring Maven Release Repository</name>
-            <url>http://maven.springframework.org/release</url>
-        </repository>
-        <repository>
-            <id>spring-maven-milestone</id>
-            <name>Spring Maven Milestone Repository</name>
-            <url>http://maven.springframework.org/milestone</url>
-        </repository>
-    </repositories>
+		<repository>
+			<id>spring-maven-release</id>
+			<name>Spring Maven Release Repository</name>
+			<url>http://maven.springframework.org/release</url>
+		</repository>
+		<repository>
+			<id>spring-maven-milestone</id>
+			<name>Spring Maven Milestone Repository</name>
+			<url>http://maven.springframework.org/milestone</url>
+		</repository>
+	</repositories>
 
 	<dependencies>
 		<dependency>
@@ -91,9 +91,9 @@
 			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
-		    <groupId>cglib</groupId>
-		    <artifactId>cglib</artifactId>
-		    <version>2.2</version>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.data</groupId>
@@ -101,7 +101,7 @@
 			<version>${spring.data.mongo.version}</version>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<plugins>
 			<plugin>
@@ -138,7 +138,8 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.7</version>  <!--  Note 2.8 does not work with AspectJ aspect path -->
+				<version>2.7</version>
+				<!--  Note 2.8 does not work with AspectJ aspect path -->
 				<configuration>
 					<downloadSources>true</downloadSources>
 					<downloadJavadocs>false</downloadJavadocs>

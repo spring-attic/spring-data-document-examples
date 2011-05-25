@@ -1,11 +1,10 @@
 package com.springone.myrestaurants.config;
 
+import com.mongodb.Mongo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.document.mongodb.MongoTemplate;
-
-import com.mongodb.DB;
-import com.mongodb.Mongo;
+import org.springframework.data.document.mongodb.SimpleMongoDbFactory;
 
 @Configuration
 public class MongoConfiguration {
@@ -14,8 +13,7 @@ public class MongoConfiguration {
 	public MongoTemplate mongoTemplate() throws Exception {
 
 		Mongo m = new Mongo();
-		MongoTemplate mongoTemplate = new MongoTemplate(m, "mvc", "mvc");
-		mongoTemplate.afterPropertiesSet();
+		MongoTemplate mongoTemplate = new MongoTemplate(new SimpleMongoDbFactory(m, "mvc"));
 		if (!mongoTemplate.collectionExists("mvc")) {
 			mongoTemplate.createCollection("mvc");
 		}

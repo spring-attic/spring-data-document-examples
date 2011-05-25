@@ -6,11 +6,10 @@
 		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
 
 	<!-- Sets up a Mongo DB instance. Configure host, port and credentials if needed. -->
-	<mongo:mongo id="mongo" />
+	<mongo:db-factory dbname="music"/>
 
 	<bean id="mongoTemplate" class="org.springframework.data.document.mongodb.MongoTemplate">
-		<constructor-arg ref="mongo" />
-		<constructor-arg value="music" />
+		<constructor-arg ref="mongoDbFactory" />
 	</bean>
 
 </beans>
