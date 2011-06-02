@@ -30,7 +30,7 @@ public class AlbumsIntegrationTest extends AbstractIntegrationTest {
         super.setUp();
 
         // Stores both albums
-        operations.insertList(COLLECTION, albums);
+        operations.insert(albums, COLLECTION);
     }
 
 
@@ -75,7 +75,7 @@ public class AlbumsIntegrationTest extends AbstractIntegrationTest {
 
         Query query =
             parseQuery("{ 'tracks.name' : { '$regex' : '.*it.*' , '$options' : '' }}");
-        assertBothAlbums(operations.find(COLLECTION, query, Album.class));
+        assertBothAlbums(operations.find(query, Album.class, COLLECTION));
     }
 
 

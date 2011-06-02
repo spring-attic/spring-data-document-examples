@@ -99,7 +99,7 @@ public class ChartController {
 			ds = new DefaultCategoryDataset();
 
 			if (controllerName != null) {
-				counters = mongoTemplate.find("counters", new Query(where("name").is(controllerName)), ControllerCounter.class);
+				counters = mongoTemplate.find(new Query(where("name").is(controllerName)), ControllerCounter.class, "counters");
 				for (ControllerCounter controllerCounter : counters) {
 					Map<String, Double> methodInvocations = controllerCounter.getMethods();
 					Set<Entry<String, Double>> es = methodInvocations.entrySet();
@@ -108,7 +108,7 @@ public class ChartController {
 					}
 				}
 			} else {
-				counters = mongoTemplate.getCollection("counters", ControllerCounter.class);
+				counters = mongoTemplate.findAll(ControllerCounter.class, "counters");
 				for (ControllerCounter controllerCounter : counters) {
 					ds.addValue(controllerCounter.getCount(), "invoked (aggregate)", controllerCounter.getName());
 				}

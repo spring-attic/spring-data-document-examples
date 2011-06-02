@@ -21,10 +21,9 @@ import com.mongodb.Mongo;
 import com.mongodb.QueryBuilder;
 import com.mongodb.WriteResult;
 
-public class MvcAnalyticsTests {
+public class MvcAnalyticsTest {
 
 	private MongoTemplate mongoTemplate;
-	private MongoTemplate mongoDummyTemplate;
 
 	@Before
 	public void setUp() throws Exception {
@@ -51,10 +50,10 @@ public class MvcAnalyticsTests {
 		createAndStoreMvcEvent(3, 3);
 		createAndStoreMvcEvent(8, 4);
 
-		List<MvcEvent> mvcEvents = mongoTemplate.getCollection("mvc", MvcEvent.class);
+		List<MvcEvent> mvcEvents = mongoTemplate.findAll(MvcEvent.class, "mvc");
 		Assert.assertEquals(22, mvcEvents.size());
 
-		mongoDummyTemplate.getCollection("mvc", MvcEvent.class);
+		mongoTemplate.findAll(MvcEvent.class, "mvc");
 
 	}
 
@@ -79,8 +78,10 @@ public class MvcAnalyticsTests {
 		for (DBObject dbo : mongoTemplate.getCollection("counters").find(query)) {
 			System.out.println(dbo);
 		}
-		List<ControllerCounter> counters = mongoTemplate.find("counters",
-				new BasicQuery("{ 'name' : 'SignUpController'} "), ControllerCounter.class);
+		List<ControllerCounter> counters = mongoTemplate.find(
+				new BasicQuery("{ 'name' : 'SignUpController'} "), 
+				ControllerCounter.class,
+				"counters");
 		for (ControllerCounter controllerCounter : counters) {
 			System.out.println(controllerCounter);
 		}
@@ -96,7 +97,7 @@ public class MvcAnalyticsTests {
 
 	@Test
 	public void listAllMvcEvents() {
-		List<MvcEvent> mvcEvents = mongoTemplate.getCollection("mvc", MvcEvent.class);
+		List<MvcEvent> mvcEvents = mongoTemplate.findAll(MvcEvent.class, "mvc");
 		for (MvcEvent mvcEvent : mvcEvents) {
 			System.out.println(mvcEvent.getDate());
 		}
@@ -198,7 +199,7 @@ public class MvcAnalyticsTests {
 	private void createAndStoreMvcEvent(int dataSize, int p1) {
 		for (int i = 0; i < dataSize; i++) {
 			MvcEvent event = generateEvent(p1);
-			mongoTemplate.save("mvc", event);
+			mongoTemplate.save(event, "mvc");
 		}
 	}
 
