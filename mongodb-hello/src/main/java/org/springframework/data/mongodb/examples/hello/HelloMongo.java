@@ -1,12 +1,12 @@
 package org.springframework.data.mongodb.examples.hello;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.document.mongodb.MongoTemplate;
 import org.springframework.data.mongodb.examples.hello.domain.Account;
 import org.springframework.data.mongodb.examples.hello.domain.Person;
 import org.springframework.stereotype.Repository;
-
-import com.mongodb.DBCollection;
 
 @Repository
 public class HelloMongo {
@@ -15,11 +15,12 @@ public class HelloMongo {
 	MongoTemplate mongoTemplate;
 
 	public void run() {
-		if (mongoTemplate.getCollectionNames().contains("HelloMongo")) {
-			mongoTemplate.dropCollection("HelloMongo");
+		
+		if (mongoTemplate.collectionExists(Person.class)) {
+			mongoTemplate.dropCollection(Person.class);
 		}
 		
-		mongoTemplate.createCollection("HelloMongo");
+		mongoTemplate.createCollection(Person.class);
 
 		Person p = new Person("John", 39);
 		Account a = new Account("1234-59873-893-1", Account.Type.SAVINGS, 123.45D);
@@ -27,8 +28,8 @@ public class HelloMongo {
 		
 		mongoTemplate.insert(p);
 		
-		DBCollection results = mongoTemplate.getCollection("HelloMongo");
-		System.out.println("Results: " + results.findOne());
+		List<Person> results = mongoTemplate.findAll(Person.class);
+		System.out.println("Results: " + results);
 	}
 
 }

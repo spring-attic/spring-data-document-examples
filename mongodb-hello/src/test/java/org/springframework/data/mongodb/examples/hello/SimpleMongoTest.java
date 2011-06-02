@@ -3,7 +3,6 @@ package org.springframework.data.mongodb.examples.hello;
 import static org.junit.Assert.*;
 import static org.springframework.data.document.mongodb.query.Criteria.*;
 import static org.springframework.data.document.mongodb.query.Query.query;
-import static org.springframework.data.document.mongodb.query.Update.update;
 
 import java.util.List;
 
@@ -15,7 +14,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.document.mongodb.MongoCollectionUtils;
 import org.springframework.data.document.mongodb.MongoTemplate;
-import org.springframework.data.document.mongodb.query.Criteria;
 import org.springframework.data.document.mongodb.query.Index;
 import org.springframework.data.document.mongodb.query.Order;
 import org.springframework.data.document.mongodb.query.Query;
@@ -69,7 +67,7 @@ public class SimpleMongoTest {
 		if (!mongoTemplate.getCollectionNames().contains(collectionName)) {
 			mongoTemplate.createCollection(collectionName);
 		}
-		mongoTemplate.ensureIndex(collectionName, new Index().on("name", Order.ASCENDING));
+		mongoTemplate.ensureIndex(new Index().on("name", Order.ASCENDING), collectionName);
 	}
 
 	@Test
@@ -134,11 +132,11 @@ public class SimpleMongoTest {
 
 		assertEquals(4, mongoTemplate.getCollection(collectionName).count());
 
-		WriteResult wr = mongoTemplate.updateMulti(Person.class,
-				query(where("accounts.accountType").ne(Account.Type.SAVINGS)),
-				new Update().inc("accounts.$.balance", 50.00));
+		WriteResult wr = mongoTemplate.updateMulti(
+				query(where("accounts.accountType").is(Account.Type.SAVINGS)),
+				new Update().inc("accounts.$.balance", 50.00),
+				Person.class);
 
-		System.out.println(wr);
 		assertNotNull(wr);
 		assertEquals(3, wr.getN());
 	}

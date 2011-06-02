@@ -6,7 +6,7 @@ From the commandline run:
 	
 You should see some output resembling this:
 
-Results: { "_id" : { "$oid" : "4d54502b60ad8987435bbdd4"} , "accounts" : [ { "accountType" : "SAVINGS" , "accountNumber" : "1234-59873-893-1" , "balance" : 123.45}] , "name" : "John" , "age" : 39}
+Results: [Person [id=4de7c19bab45985f76ebe650, name=John, age=39, accounts=[Account [id=null, accountNumber=1234-59873-893-1, accountType=SAVINGS, balance=123.45]]]]
 DONE!
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESSFUL
