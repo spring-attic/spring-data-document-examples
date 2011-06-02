@@ -28,23 +28,21 @@
   <jdbc:embedded-database id="dataSource" type="HSQL" />
   
   <!--  Mongo config -->
-  <mongo:mongo host="localhost" port="27017"/>
+  <mongo:db-factory host="localhost" port="27017" dbname="test"/>
 
   <bean id="mongoTemplate" class="org.springframework.data.document.mongodb.MongoTemplate">
-    <constructor-arg name="mongo" ref="mongo"/>
-    <constructor-arg name="databaseName" value="test"/>
-    <constructor-arg name="defaultCollectionName" value="cross-store"/>
+    <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
   </bean>
 
   <bean class="org.springframework.data.document.mongodb.MongoExceptionTranslator"/>
 
   <!--  Mongo aspect config -->
-  <bean class="org.springframework.data.persistence.document.mongo.MongoDocumentBacking"
+  <bean class="org.springframework.data.persistence.document.mongodb.MongoDocumentBacking"
         factory-method="aspectOf">
     <property name="changeSetPersister" ref="mongoChangeSetPersister"/>
   </bean>
   <bean id="mongoChangeSetPersister" 
-      class="org.springframework.data.persistence.document.mongo.MongoChangeSetPersister">
+      class="org.springframework.data.persistence.document.mongodb.MongoChangeSetPersister">
     <property name="mongoTemplate" ref="mongoTemplate"/>
     <property name="entityManagerFactory" ref="entityManagerFactory"/>
   </bean>

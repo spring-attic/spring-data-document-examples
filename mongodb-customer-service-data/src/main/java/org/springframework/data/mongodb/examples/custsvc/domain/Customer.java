@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import org.springframework.data.document.annotation.RelatedDocument;
+import org.springframework.data.persistence.document.RelatedDocument;
 
 @Entity
 public class Customer {
