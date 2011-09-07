@@ -11,10 +11,10 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>3.0.5.RELEASE</spring.version>
-		<spring.data.mongo.version>1.0.0.M3</spring.data.mongo.version>
+		<spring.version>3.0.6.RELEASE</spring.version>
+		<spring.data.mongo.version>1.0.0.M4</spring.data.mongo.version>
 		<slf4j.version>1.6.1</slf4j.version>
-		<querydsl.version>2.2.0-beta4</querydsl.version>
+		<querydsl.version>2.2.1</querydsl.version>
 	</properties>
 
 	<repositories>
@@ -208,7 +208,7 @@
 						</goals>
 						<configuration>
 							<outputDirectory>target/generated-sources/queries</outputDirectory>
-							<processor>org.springframework.data.document.mongodb.repository.MongoAnnotationProcessor</processor>
+							<processor>org.springframework.data.mongodb.repository.MongoAnnotationProcessor</processor>
 						</configuration>
 					</execution>
 				</executions>

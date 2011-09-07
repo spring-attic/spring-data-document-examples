@@ -11,8 +11,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>3.0.5.RELEASE</spring.version>
-		<spring.data.mongo.version>1.0.0.M3</spring.data.mongo.version>
+		<spring.version>3.0.6.RELEASE</spring.version>
+		<spring.data.mongo.version>1.0.0.M4</spring.data.mongo.version>
 		<slf4j.version>1.6.1</slf4j.version>
 	</properties>
 

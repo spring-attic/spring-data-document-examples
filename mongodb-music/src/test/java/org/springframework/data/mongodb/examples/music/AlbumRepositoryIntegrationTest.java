@@ -20,62 +20,62 @@ import org.springframework.test.context.ContextConfiguration;
 @ContextConfiguration
 public class AlbumRepositoryIntegrationTest extends AbstractIntegrationTest {
 
-    @Autowired
-    AlbumRepository repository;
+	@Autowired
+	AlbumRepository repository;
 
-    @Before
-    public void purgeRepository() {
-        repository.deleteAll();
-        super.setUp();
-    }
+	@Before
+	public void purgeRepository() {
+		repository.deleteAll();
+		super.setUp();
+	}
 
-    @Test
-    public void createAlbum() throws Exception {
+	@Test
+	public void createAlbum() throws Exception {
 
-        repository.save(albums);
-        assertSingleGruxAlbum(repository.findOne(bigWhiskey.getId()));
-    }
-
-
-    @Test
-    public void findsAlbumByConcreteTrackName() throws Exception {
-
-        repository.save(albums);
-        assertSingleGruxAlbum(repository.findByTracksName("Grux"));
-
-        List<Album> albums = repository.findByTracksName("Foo");
-        assertThat(albums.isEmpty(), is(true));
-    }
+		repository.save(albums);
+		assertSingleGruxAlbum(repository.findOne(bigWhiskey.getId()));
+	}
 
 
-    @Test
-    public void findsAllAlbumsByTrackNameLike() throws Exception {
+	@Test
+	public void findsAlbumByConcreteTrackName() throws Exception {
 
-        repository.save(albums);
-        assertBothAlbums(repository.findByTracksNameLike("*it*"));
-    }
+		repository.save(albums);
+		assertSingleGruxAlbum(repository.findByTracksName("Grux"));
 
-
-    @Test
-    public void findsAlbumsByTrackRating() throws Exception {
-
-        bigWhiskey.getTracks().get(4).setRating(Stars.FOUR);
-        repository.save(albums);
-
-        assertSingleGruxAlbum(repository
-                .findByTracksRatingGreaterThan(Stars.THREE));
-
-        List<Album> albums =
-            repository.findByTracksRatingGreaterThan(Stars.FOUR);
-        assertThat(albums.isEmpty(), is(true));
-    }
+		List<Album> albums = repository.findByTracksName("Foo");
+		assertThat(albums.isEmpty(), is(true));
+	}
 
 
-    private void assertSingleGruxAlbum(List<Album> albums) {
+	@Test
+	public void findsAllAlbumsByTrackNameLike() throws Exception {
 
-        assertThat(albums, is(notNullValue()));
-        assertThat(albums.size(), is(1));
-        assertThat(albums.get(0), is(notNullValue(Album.class)));
-        assertSingleGruxAlbum(albums.get(0));
-    }
+		repository.save(albums);
+		assertBothAlbums(repository.findByTracksNameLike("*it*"));
+	}
+
+
+	@Test
+	public void findsAlbumsByTrackRating() throws Exception {
+
+		bigWhiskey.getTracks().get(4).setRating(Stars.FOUR);
+		repository.save(albums);
+
+		assertSingleGruxAlbum(repository
+				.findByTracksRatingGreaterThan(Stars.THREE));
+
+		List<Album> albums =
+			repository.findByTracksRatingGreaterThan(Stars.FOUR);
+		assertThat(albums.isEmpty(), is(true));
+	}
+
+
+	private void assertSingleGruxAlbum(List<Album> albums) {
+
+		assertThat(albums, is(notNullValue()));
+		assertThat(albums.size(), is(1));
+		assertThat(albums.get(0), is(notNullValue(Album.class)));
+		assertSingleGruxAlbum(albums.get(0));
+	}
 }

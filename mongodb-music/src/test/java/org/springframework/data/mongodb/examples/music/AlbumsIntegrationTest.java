@@ -1,12 +1,12 @@
 package org.springframework.data.mongodb.examples.music;
 
-import static org.springframework.data.document.mongodb.query.Criteria.*;
+import static org.springframework.data.mongodb.core.query.Criteria.*;
 
 import org.junit.Test;
-import org.springframework.data.document.mongodb.MongoOperations;
-import org.springframework.data.document.mongodb.MongoTemplate;
-import org.springframework.data.document.mongodb.query.BasicQuery;
-import org.springframework.data.document.mongodb.query.Query;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.BasicQuery;
+import org.springframework.data.mongodb.core.query.Query;
 
 
 /**
@@ -17,71 +17,71 @@ import org.springframework.data.document.mongodb.query.Query;
  */
 public class AlbumsIntegrationTest extends AbstractIntegrationTest {
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.springframework.data.mongodb.examples.music.AbstractIntegrationTests
-     * #setUp()
-     */
-    @Override
-    public void setUp() {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.data.mongodb.core.core.examples.music.AbstractIntegrationTests
+	 * #setUp()
+	 */
+	@Override
+	public void setUp() {
 
-        super.setUp();
+		super.setUp();
 
-        // Stores both albums
-        operations.insert(albums, COLLECTION);
-    }
-
-
-    @Test
-    public void lookupAlbumByIdWithQueryBuilder() throws Exception {
-
-        Query build =
-            new Query(where("_id").is(bigWhiskey.getId()));
-
-        assertSingleGruxAlbum(build);
-    }
+		// Stores both albums
+		operations.insertAll(albums);
+	}
 
 
-    @Test
-    public void lookupAlbumByIdUsingJson() throws Exception {
+	@Test
+	public void lookupAlbumByIdWithQueryBuilder() throws Exception {
 
-        Query query =
-            parseQuery("{'_id' : { '$oid' : '%s' }}", bigWhiskey.getId());
-        assertSingleGruxAlbum(query);
-    }
+		Query build =
+				new Query(where("_id").is(bigWhiskey.getId()));
 
-
-    @Test
-    public void lookupAlbumsByTrackNameUsingJson() throws Exception {
-
-        Query query = parseQuery("{'tracks.name' : 'Wheels'}");
-        assertSinglePursuitAlbum(query);
-    }
+		assertSingleGruxAlbum(build);
+	}
 
 
-    @Test
-    public void lookupAlbumByTrackNameUsingQueryBuilder() {
+	@Test
+	public void lookupAlbumByIdUsingJson() throws Exception {
 
-        Query spec =
-            new Query(where("tracks.name").is("Grux"));
-        assertSingleGruxAlbum(spec);
-    }
-
-
-    @Test
-    public void lookupAlbumByTrackNamePattern() throws Exception {
-
-        Query query =
-            parseQuery("{ 'tracks.name' : { '$regex' : '.*it.*' , '$options' : '' }}");
-        assertBothAlbums(operations.find(query, Album.class, COLLECTION));
-    }
+		Query query =
+				parseQuery("{'_id' : { '$oid' : '%s' }}", bigWhiskey.getId());
+		assertSingleGruxAlbum(query);
+	}
 
 
-    private Query parseQuery(String query, Object... arguments) {
+	@Test
+	public void lookupAlbumsByTrackNameUsingJson() throws Exception {
 
-        return new BasicQuery(String.format(query, arguments));
-    }
+		Query query = parseQuery("{'tracks.name' : 'Wheels'}");
+		assertSinglePursuitAlbum(query);
+	}
+
+
+	@Test
+	public void lookupAlbumByTrackNameUsingQueryBuilder() {
+
+		Query spec =
+				new Query(where("tracks.name").is("Grux"));
+		assertSingleGruxAlbum(spec);
+	}
+
+
+	@Test
+	public void lookupAlbumByTrackNamePattern() throws Exception {
+
+		Query query =
+				parseQuery("{ 'tracks.name' : { '$regex' : '.*it.*' , '$options' : '' }}");
+		assertBothAlbums(operations.find(query, Album.class, COLLECTION));
+	}
+
+
+	private Query parseQuery(String query, Object... arguments) {
+
+		return new BasicQuery(String.format(query, arguments));
+	}
 
 }

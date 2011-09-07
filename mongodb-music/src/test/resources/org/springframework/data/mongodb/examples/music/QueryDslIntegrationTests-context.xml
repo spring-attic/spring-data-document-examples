@@ -11,6 +11,6 @@
 		in AlbumRepository e.g. The repository support will use the bean called
 		'mongoTemplate'	by default. Use 'mongo-template-ref' attribute to customize.
 	-->
-	<mongo:repositories base-package="org.springframework.data.mongodb.examples.music" />	
+	<mongo:repositories base-package="org.springframework.data.mongodb.core.core.examples.music" />	
 
 </beans>

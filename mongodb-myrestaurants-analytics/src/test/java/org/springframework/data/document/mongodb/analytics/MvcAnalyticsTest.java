@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.springframework.data.document.analytics.ControllerCounter;
 import org.springframework.data.document.analytics.MvcEvent;
 import org.springframework.data.document.analytics.Parameters;
+import org.springframework.data.document.mongodb.MongoOperations;
 import org.springframework.data.document.mongodb.MongoTemplate;
 import org.springframework.data.document.mongodb.query.BasicQuery;
 
@@ -23,37 +24,37 @@ import com.mongodb.WriteResult;
 
 public class MvcAnalyticsTest {
 
-	private MongoTemplate mongoTemplate;
+	MongoOperations operations;
 
 	@Before
 	public void setUp() throws Exception {
 		Mongo m = new Mongo();
-		mongoTemplate = new MongoTemplate(m, "mvc");
+		operations = new MongoTemplate(m, "mvc");
 	}
 
 	@Test
 	public void clean() {
-		mongoTemplate.dropCollection("mvc");
-		mongoTemplate.createCollection("mvc");
-		mongoTemplate.dropCollection("counters");
-		mongoTemplate.createCollection("counters");
+		operations.dropCollection("mvc");
+		operations.createCollection("mvc");
+		operations.dropCollection("counters");
+		operations.createCollection("counters");
 	}
 
 	@Test
 	public void loadMvcEventData() {
 
-		mongoTemplate.dropCollection("mvc");
-		mongoTemplate.createCollection("mvc");
+		operations.dropCollection("mvc");
+		operations.createCollection("mvc");
 		// datasize, favoriteRestId
 		createAndStoreMvcEvent(5, 1);
 		createAndStoreMvcEvent(6, 2);
 		createAndStoreMvcEvent(3, 3);
 		createAndStoreMvcEvent(8, 4);
 
-		List<MvcEvent> mvcEvents = mongoTemplate.findAll(MvcEvent.class, "mvc");
+		List<MvcEvent> mvcEvents = operations.findAll(MvcEvent.class, "mvc");
 		Assert.assertEquals(22, mvcEvents.size());
 
-		mongoTemplate.findAll(MvcEvent.class, "mvc");
+		operations.findAll(MvcEvent.class, "mvc");
 
 	}
 
@@ -75,11 +76,11 @@ public class MvcAnalyticsTest {
 	@Test
 	public void queryCounterData() {
 		DBObject query = QueryBuilder.start("name").is("SignUpController").get();
-		for (DBObject dbo : mongoTemplate.getCollection("counters").find(query)) {
+		for (DBObject dbo : operations.getCollection("counters").find(query)) {
 			System.out.println(dbo);
 		}
-		List<ControllerCounter> counters = mongoTemplate.find(
-				new BasicQuery("{ 'name' : 'SignUpController'} "), 
+		List<ControllerCounter> counters = operations.find(
+				new BasicQuery("{ 'name' : 'SignUpController'} "),
 				ControllerCounter.class,
 				"counters");
 		for (ControllerCounter controllerCounter : counters) {
@@ -88,16 +89,16 @@ public class MvcAnalyticsTest {
 	}
 
 	/*
-			*
-			* var start = new Date(2010,9,1); var end = new Date(2010,11,1);
-			* db.mvc.group( { cond: {"action": "addFavoriteRestaurant", "date": {$gte:
-			* start, $lt: end}} , key: {"parameters.p1": true} , initial: {count: 0} ,
-			* reduce: function(doc, out){ out.count++; } } );
-			*/
+	 *
+	 * var start = new Date(2010,9,1); var end = new Date(2010,11,1);
+	 * db.mvc.group( { cond: {"action": "addFavoriteRestaurant", "date": {$gte:
+	 * start, $lt: end}} , key: {"parameters.p1": true} , initial: {count: 0} ,
+	 * reduce: function(doc, out){ out.count++; } } );
+	 */
 
 	@Test
 	public void listAllMvcEvents() {
-		List<MvcEvent> mvcEvents = mongoTemplate.findAll(MvcEvent.class, "mvc");
+		List<MvcEvent> mvcEvents = operations.findAll(MvcEvent.class, "mvc");
 		for (MvcEvent mvcEvent : mvcEvents) {
 			System.out.println(mvcEvent.getDate());
 		}
@@ -106,7 +107,7 @@ public class MvcAnalyticsTest {
 	@Test
 	public void groupQuery() {
 		// This circumvents exception translation
-		DBCollection collection = mongoTemplate.getDb().getCollection("mvc");
+		DBCollection collection = operations.getCollection("mvc");
 
 		// QueryBuilder qb = new QueryBuilder();
 		// qb.start("date").greaterThan(object)
@@ -120,21 +121,21 @@ public class MvcAnalyticsTest {
 		endDate.set(Calendar.MONTH, 12);
 
 		/*
-					 * QueryBuilder qb = new QueryBuilder(); Query q =
-					 * qb.find("date").gte(startDate
-					 * .getTime()).lt(endDate.getTime()).and("action"
-					 * ).is("addFavoriteRestaurant").build(); DBObject cond2 =
-					 * q.getQueryObject();
-					 */
+		 * QueryBuilder qb = new QueryBuilder(); Query q =
+		 * qb.find("date").gte(startDate
+		 * .getTime()).lt(endDate.getTime()).and("action"
+		 * ).is("addFavoriteRestaurant").build(); DBObject cond2 =
+		 * q.getQueryObject();
+		 */
 		DBObject cond = QueryBuilder.start("date").greaterThanEquals(startDate.getTime()).lessThan(endDate.getTime())
 				.and("action").is("addFavoriteRestaurant").get();
 		DBObject key = new BasicDBObject("parameters.p1", true);
 		/*
-					 * DBObject dateQ = new BasicDBObject(); dateQ.put("$gte",
-					 * startDate.getTime()); dateQ.put("$lt", endDate.getTime()); DBObject
-					 * cond = new BasicDBObject(); cond.put("action",
-					 * "addFavoriteRestaurant"); cond.put("date", dateQ);
-					 */
+		 * DBObject dateQ = new BasicDBObject(); dateQ.put("$gte",
+		 * startDate.getTime()); dateQ.put("$lt", endDate.getTime()); DBObject
+		 * cond = new BasicDBObject(); cond.put("action",
+		 * "addFavoriteRestaurant"); cond.put("date", dateQ);
+		 */
 
 		DBObject intitial = new BasicDBObject("count", 0);
 		DBObject result = collection.group(key, cond, intitial, "function(doc, out){ out.count++; }");
@@ -162,7 +163,7 @@ public class MvcAnalyticsTest {
 
 		// /mongoTemplate.update(collection("counters")
 
-		WriteResult r = mongoTemplate.getCollection("counters").update(query, changes, true, false);
+		WriteResult r = operations.getCollection("counters").update(query, changes, true, false);
 		// { "err" : "Modifiers and non-modifiers cannot be mixed" , "code" : 10154 , "n" : 0 , "ok" : 1.0}
 		// { "err" : null , "updatedExisting" : false , "upserted" : { "$oid" : "4cba814a5a4900000000495d"} , "n" : 1 , "ok"
 		// : 1.0}
@@ -178,7 +179,7 @@ public class MvcAnalyticsTest {
 	public void updateMethodCounter() {
 		DBObject query = new BasicDBObject("name", "controller1");
 		DBObject changes = new BasicDBObject("$inc", new BasicDBObject("methods.find", 1));
-		mongoTemplate.getDb().getCollection("counters").update(query, changes, true, false);
+		operations.getCollection("counters").update(query, changes, true, false);
 	}
 
 	public void storeCounterData(String controllerName, String methodName) {
@@ -188,18 +189,18 @@ public class MvcAnalyticsTest {
 		changes.put("$set", new BasicDBObject("name", controllerName));
 		changes.put("$inc", new BasicDBObject("count", 1));
 
-		WriteResult r = mongoTemplate.getCollection("counters").update(query, changes, true, false);
+		WriteResult r = operations.getCollection("counters").update(query, changes, true, false);
 		System.out.println(r);
 
 		changes = new BasicDBObject("$inc", new BasicDBObject("methods." + methodName, 1));
-		r = mongoTemplate.getDb().getCollection("counters").update(query, changes, true, false);
+		r = operations.getCollection("counters").update(query, changes, true, false);
 		System.out.println(r);
 	}
 
 	private void createAndStoreMvcEvent(int dataSize, int p1) {
 		for (int i = 0; i < dataSize; i++) {
 			MvcEvent event = generateEvent(p1);
-			mongoTemplate.save(event, "mvc");
+			operations.save(event, "mvc");
 		}
 	}
 

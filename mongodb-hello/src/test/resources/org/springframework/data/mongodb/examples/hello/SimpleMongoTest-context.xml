@@ -6,7 +6,7 @@
 			 http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
 
 	<mongo:db-factory dbname="test"/>
-	<bean id="mongoTemplate" class="org.springframework.data.document.mongodb.MongoTemplate">
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg ref="mongoDbFactory"/>
 	</bean>
 

@@ -30,11 +30,9 @@
   <!--  Mongo config -->
   <mongo:db-factory host="localhost" port="27017" dbname="test"/>
 
-  <bean id="mongoTemplate" class="org.springframework.data.document.mongodb.MongoTemplate">
+  <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
     <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
   </bean>
-
-  <bean class="org.springframework.data.document.mongodb.MongoExceptionTranslator"/>
 
   <!--  Mongo aspect config -->
   <bean class="org.springframework.data.persistence.document.mongodb.MongoDocumentBacking"
@@ -49,11 +47,5 @@
 
   <!-- Configure JPA Repositories -->
   <jpa:repositories base-package="org.springframework.data.mongodb.examples.custsvc.data"/>
-
-  <!-- Necessary to get the entity manager injected into the factory bean -->
-  <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
-
-  <!-- Adds transaparent exception translation to the DAOs -->
-  <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
 </beans>
