@@ -28,7 +28,8 @@
   <jdbc:embedded-database id="dataSource" type="HSQL" />
   
   <!--  Mongo config -->
-  <mongo:db-factory host="localhost" port="27017" dbname="test"/>
+  <!-- remove attributes host="localhost" port="27017" otherwise unit testing will fail.-->
+  <mongo:db-factory dbname="test"/>
 
   <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
     <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
