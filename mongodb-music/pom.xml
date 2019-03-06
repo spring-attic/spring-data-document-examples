@@ -7,7 +7,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 	<name>spring-data-mongodb-examples-hello</name>
-	<url>http://maven.apache.org</url>
+	<url>https://maven.apache.org</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -21,17 +21,17 @@
 		<repository>
 			<id>spring-maven-release</id>
 			<name>Spring Maven Release Repository</name>
-			<url>http://maven.springframework.org/release</url>
+			<url>https://maven.springframework.org/release</url>
 		</repository>
 		<repository>
 			<id>spring-maven-milestone</id>
 			<name>Spring Maven Milestone Repository</name>
-			<url>http://maven.springframework.org/milestone</url>
+			<url>https://maven.springframework.org/milestone</url>
 		</repository>
 		<repository>
 			<id>querydsl</id>
 			<name>Mysema QueryDsl</name>
-			<url>http://source.mysema.com/maven2/releases</url>
+			<url>https://source.mysema.com/maven2/releases</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
