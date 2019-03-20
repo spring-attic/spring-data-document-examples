@@ -37,7 +37,7 @@ import org.springframework.util.Assert;
  * @author Arjen Poutsma
  * @author Juergen Hoeller
  * @since 3.0
- * @see <a href="http://bitworking.org/projects/URI-Templates/">URI Templates</a>
+ * @see <a href="https://bitworking.org/projects/URI-Templates/">URI Templates</a>
  */
 public class UriTemplate {
 
@@ -79,13 +79,13 @@ public class UriTemplate {
 	 * Given the Map of variables, expands this template into a URI. The Map keys represent variable names, the Map values
 	 * variable values. The order of variables is not significant. <p>Example:
 	 * <pre>
-	 * UriTemplate template = new UriTemplate("http://example.com/hotels/{hotel}/bookings/{booking}");
+	 * UriTemplate template = new UriTemplate("https://example.com/hotels/{hotel}/bookings/{booking}");
 	 * Map&lt;String, String&gt; uriVariables = new HashMap&lt;String, String&gt;();
 	 * uriVariables.put("booking", "42");
 	 * uriVariables.put("hotel", "1");
 	 * System.out.println(template.expand(uriVariables));
 	 * </pre>
-	 * will print: <blockquote><code>http://example.com/hotels/1/bookings/42</code></blockquote>
+	 * will print: <blockquote><code>https://example.com/hotels/1/bookings/42</code></blockquote>
 	 * @param uriVariables the map of URI variables
 	 * @return the expanded URI
 	 * @throws IllegalArgumentException if <code>uriVariables</code> is <code>null</code>; or if it does not contain values
@@ -107,8 +107,8 @@ public class UriTemplate {
 	/**
 	 * Given an array of variables, expand this template into a full URI. The array represent variable values.
 	 * The order of variables is significant. <p>Example: <pre class="code> UriTemplate template = new
-	 * UriTemplate("http://example.com/hotels/{hotel}/bookings/{booking}"); System.out.println(template.expand("1", "42));
-	 * </pre> will print: <blockquote><code>http://example.com/hotels/1/bookings/42</code></blockquote>
+	 * UriTemplate("https://example.com/hotels/{hotel}/bookings/{booking}"); System.out.println(template.expand("1", "42));
+	 * </pre> will print: <blockquote><code>https://example.com/hotels/1/bookings/42</code></blockquote>
 	 * @param uriVariableValues the array of URI variables
 	 * @return the expanded URI
 	 * @throws IllegalArgumentException if <code>uriVariables</code> is <code>null</code>; or if it does not contain
@@ -149,7 +149,7 @@ public class UriTemplate {
 	/**
 	 * Match the given URI to a map of variable values. Keys in the returned map are variable names, values are variable
 	 * values, as occurred in the given URI. <p>Example: <pre class="code"> UriTemplate template = new
-	 * UriTemplate("http://example.com/hotels/{hotel}/bookings/{booking}"); System.out.println(template.match("http://example.com/hotels/1/bookings/42"));
+	 * UriTemplate("https://example.com/hotels/{hotel}/bookings/{booking}"); System.out.println(template.match("https://example.com/hotels/1/bookings/42"));
 	 * </pre> will print: <blockquote><code>{hotel=1, booking=42}</code></blockquote>
 	 * @param uri the URI to match to
 	 * @return a map of variable values
