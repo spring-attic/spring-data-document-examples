@@ -23,7 +23,7 @@ import java.util.Arrays;
  * Miscellaneous object utility methods.
  *
  * <p>Mainly for internal use within the framework; consider
- * <a href="http://jakarta.apache.org/commons/lang/">Jakarta's Commons Lang</a>
+ * <a href="https://jakarta.apache.org/commons/lang/">Jakarta's Commons Lang</a>
  * for a more comprehensive suite of object utilities.
  *
  * <p>Thanks to Alex Ruiz for contributing several enhancements to this class!

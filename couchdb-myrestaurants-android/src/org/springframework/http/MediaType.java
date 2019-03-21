@@ -44,7 +44,7 @@ import org.springframework.util.StringUtils;
  * @author Arjen Poutsma
  * @author Juergen Hoeller
  * @since 3.0
- * @see <a href="http://tools.ietf.org/html/rfc2616#section-3.7">HTTP 1.1, section 3.7</a>
+ * @see <a href="https://tools.ietf.org/html/rfc2616#section-3.7">HTTP 1.1, section 3.7</a>
  */
 public class MediaType implements Comparable<MediaType> {
 
@@ -273,7 +273,7 @@ public class MediaType implements Comparable<MediaType> {
 	/**
 	 * Checks the given token string for illegal characters, as defined in RFC 2616, section 2.2.
 	 * @throws IllegalArgumentException in case of illegal characters
-	 * @see <a href="http://tools.ietf.org/html/rfc2616#section-2.2">HTTP 1.1, section 2.2</a>
+	 * @see <a href="https://tools.ietf.org/html/rfc2616#section-2.2">HTTP 1.1, section 2.2</a>
 	 */
 	private void checkToken(String s) {
 		for (int i=0; i < s.length(); i++ ) {
@@ -647,7 +647,7 @@ public class MediaType implements Comparable<MediaType> {
 	 * <blockquote>audio/basic == text/html</blockquote>
 	 * <blockquote>audio/basic == audio/wave</blockquote>
 	 * @param mediaTypes the list of media types to be sorted
-	 * @see <a href="http://tools.ietf.org/html/rfc2616#section-14.1">HTTP 1.1, section 14.1</a>
+	 * @see <a href="https://tools.ietf.org/html/rfc2616#section-14.1">HTTP 1.1, section 14.1</a>
 	 */
 	public static void sortBySpecificity(List<MediaType> mediaTypes) {
 		Assert.notNull(mediaTypes, "'mediaTypes' must not be null");

@@ -66,14 +66,14 @@ import org.springframework.util.StringUtils;
  * form.add("field 1", "value 1");
  * form.add("field 2", "value 2");
  * form.add("field 2", "value 3");
- * template.postForLocation("http://example.com/myForm", form);
+ * template.postForLocation("https://example.com/myForm", form);
  * </pre>
  * <p>The following snippet shows how to do a file upload:
  * <pre class="code">
  * MultiValueMap&lt;String, Object&gt; parts = new LinkedMultiValueMap&lt;String, Object&gt;();
  * parts.add("field 1", "value 1");
  * parts.add("file", new ClassPathResource("myFile.jpg"));
- * template.postForLocation("http://example.com/myFileUpload", parts);
+ * template.postForLocation("https://example.com/myFileUpload", parts);
  * </pre>
  *
  * <p>Some methods in this class were inspired by {@link org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity}.
